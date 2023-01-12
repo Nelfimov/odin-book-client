@@ -53,11 +53,11 @@ export default function Login() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: {
-          username: JSON.stringify(usernameValue),
-          email: JSON.stringify(emailValue),
-          password: JSON.stringify(passwordValue),
-        },
+        body: JSON.stringify({
+          username: usernameValue,
+          email: emailValue,
+          password: passwordValue,
+        }),
       })
           .then((response) => JSON.parse(response))
           .then((data) => {

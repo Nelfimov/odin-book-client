@@ -1,5 +1,6 @@
-import '../styles/Navbar.css';
+import {NavLink} from 'react-router-dom';
 import propTypes from 'prop-types';
+import '../styles/Navbar.css';
 
 /**
  * Navbar component
@@ -12,13 +13,14 @@ export default function Navbar({isLoggedIn}) {
       <span className="logo">ODIN-BOOK</span>
       { isLoggedIn ?
       <nav>
-        <a href="" className="nav-link">Home</a>
-        <a href="" className="nav-link">Profile</a>
-        <a href="" className="nav-link">Log out</a>
+        <NavLink to='/'>Home</NavLink>
+        <NavLink to='/profile'>Profile</NavLink>
+        <button onClick={() => localStorage.removeItem('token')}>
+          Log out
+        </button>
       </nav> :
       <nav>
-        <a href="" className="nav-link">Register</a>
-        <a href="" className="nav-link">Login</a>
+        <a href="https://github.com/nelfimov" className="nav-link">Github</a>
       </nav>
       }
     </header>
