@@ -1,5 +1,5 @@
 import {createBrowserRouter} from 'react-router-dom';
-import {Welcome} from '../components';
+import {Welcome} from '../components/Welcome';
 
 const router = createBrowserRouter([
   {
@@ -8,4 +8,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router;
+export {router};

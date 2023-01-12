@@ -5,7 +5,7 @@ import {Login, Register} from './index';
  * Welcome page with sign in or sign up options.
  * @return {JSX}
  */
-export default function Welcome() {
+export function Welcome() {
   const [toggle, setToggle] = useState(false);
 
   return (
