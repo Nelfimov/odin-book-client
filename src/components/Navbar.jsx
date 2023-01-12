@@ -3,6 +3,7 @@ import propTypes from 'prop-types';
 
 /**
  * Navbar component
+ * @param {bool} isLoggedIn Is user logged in.
  * @return {JSX} JSX
  */
 export default function Navbar({isLoggedIn}) {
