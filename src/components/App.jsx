@@ -1,6 +1,8 @@
 import {useEffect, useState} from 'react';
 import '../styles/App.css';
 import {Navbar, Footer} from './index';
+import {RouterProvider} from 'react-router-dom';
+import {router} from '../config';
 
 /**
  * Main app.
@@ -18,6 +20,7 @@ export default function App() {
   return (
     <div className="App" data-testid='App'>
       <Navbar isLoggedIn={isLoggedIn} />
+      <RouterProvider router={router} />
       <Footer />
     </div>
   );
