@@ -1,11 +1,12 @@
 import {useState} from 'react';
 import {Login, Register} from './index';
+import propTypes from 'prop-types';
 
 /**
  * Welcome page with sign in or sign up options.
  * @return {JSX}
  */
-export default function Welcome() {
+export default function Welcome({login}) {
   const [toggle, setToggle] = useState(false);
 
   return (
@@ -17,9 +18,13 @@ export default function Welcome() {
         Change to { toggle ? 'sign in' : 'log in' }
       </button>
       { toggle ?
-        <Login /> :
-        <Register />
+        <Login login={login} /> :
+        <Register login={login} />
       }
     </div>
   );
 }
+
+Welcome.propTypes = {
+  login: propTypes.func,
+};

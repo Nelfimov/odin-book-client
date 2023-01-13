@@ -7,15 +7,15 @@ import '../styles/Navbar.css';
  * @param {bool} isLoggedIn Is user logged in.
  * @return {JSX} JSX
  */
-export default function Navbar({isLoggedIn}) {
+export default function Navbar({isLogged, logout}) {
   return (
     <header>
       <span className="logo">ODIN-BOOK</span>
-      { isLoggedIn ?
+      { isLogged ?
       <nav>
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/profile'>Profile</NavLink>
-        <button onClick={() => localStorage.removeItem('token')}>
+        <button onClick={logout}>
           Log out
         </button>
       </nav> :
@@ -28,5 +28,6 @@ export default function Navbar({isLoggedIn}) {
 }
 
 Navbar.propTypes = {
-  isLoggedIn: propTypes.bool.isRequired,
+  isLogged: propTypes.bool.isRequired,
+  logout: propTypes.func.isRequired,
 };

@@ -1,29 +1,44 @@
 import {useEffect, useState} from 'react';
 import {Navbar, Footer} from './index';
-import {Outlet, useNavigate} from 'react-router-dom';
+import {Outlet} from 'react-router-dom';
+import {Welcome} from './index';
 import '../styles/App.css';
 
 /**
  * Main app.
  * @return {JSX} JSX
- */
+*/
 export default function App() {
-  const [isLoggedIn, setLoggedIn] = useState(false);
-  const navigate = useNavigate();
+  const [isLogged, setIsLogged] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (token) {
-      setLoggedIn(true);
+    const user = localStorage.getItem('token');
+    if (!user) {
+      setIsLogged(false);
     } else {
-      navigate('/welcome');
+      setIsLogged(true);
     }
   }, []);
 
+  /**
+   * Log out.
+   */
+  function logout() {
+    localStorage.clear();
+    setIsLogged(false);
+  }
+
+  /**
+   * Log in.
+   */
+  function login() {
+    setIsLogged(true);
+  }
+
   return (
     <div className="App" data-testid='App'>
-      <Navbar isLoggedIn={isLoggedIn} />
-      <Outlet />
+      <Navbar isLogged={isLogged} logout={logout} />
+      { isLogged ? <Outlet /> : <Welcome login={login} />}
       <Footer />
     </div>
   );

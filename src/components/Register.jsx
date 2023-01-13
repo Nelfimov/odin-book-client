@@ -1,11 +1,11 @@
 import {useRef} from 'react';
-import {redirect} from 'react-router-dom';
+import propTypes from 'prop-types';
 
 /**
  * Register component.
  * @return {JSX} Form
  */
-export default function Register() {
+export default function Register({login}) {
   const username = useRef();
   const email = useRef();
   const password = useRef();
@@ -70,15 +70,11 @@ export default function Register() {
           password: passwordValue,
         }),
       })
-          .then((response) => {
-            console.log(response);
-            return JSON.parse(response);
-          })
+          .then((response) => response.json())
           .then((data) => {
             if (data.success) {
               localStorage.setItem('token', JSON.stringify(data.token));
-              redirect('/');
-              return;
+              login();
             }
             console.log(data.message);
           })
@@ -126,3 +122,7 @@ export default function Register() {
     </form>
   );
 }
+
+Register.propTypes = {
+  login: propTypes.func,
+};

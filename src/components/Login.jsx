@@ -1,11 +1,11 @@
 import {useRef} from 'react';
-import {redirect} from 'react-router-dom';
+import propTypes from 'prop-types';
 
 /**
  * Login component.
  * @return {JSX} Form
  */
-export default function Login() {
+export default function Login({login}) {
   const username = useRef();
   const email = useRef();
   const password = useRef();
@@ -19,8 +19,10 @@ export default function Login() {
    */
   function checkInputs(username, email, password) {
     try {
-      if (!username || !email) {
-        throw new Error('Username or email are required');
+      if (!username) {
+        if (!email) {
+          throw new Error('Username or email are required');
+        }
       }
       if (!password) {
         throw new Error('Password is required');
@@ -63,8 +65,7 @@ export default function Login() {
           .then((data) => {
             if (data.success) {
               localStorage.setItem('token', JSON.stringify(data.token));
-              redirect('/');
-              return;
+              login();
             }
             console.log(data.message);
           })
@@ -102,3 +103,7 @@ export default function Login() {
     </form>
   );
 }
+
+Login.propTypes = {
+  login: propTypes.func,
+};
