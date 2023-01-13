@@ -13,13 +13,12 @@ export default function App() {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token) return setLoggedIn(false);
-    setLoggedIn(true);
+    if (token) {
+      setLoggedIn(true);
+    } else {
+      navigate('/welcome');
+    }
   }, []);
-
-  useEffect(() => {
-    if (!isLoggedIn) navigate('/welcome');
-  }, [isLoggedIn]);
 
   return (
     <div className="App" data-testid='App'>

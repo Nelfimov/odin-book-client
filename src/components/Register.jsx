@@ -70,7 +70,10 @@ export default function Register() {
           password: passwordValue,
         }),
       })
-          .then((response) => JSON.parse(response))
+          .then((response) => {
+            console.log(response);
+            return JSON.parse(response);
+          })
           .then((data) => {
             if (data.success) {
               localStorage.setItem('token', JSON.stringify(data.token));
@@ -87,29 +90,37 @@ export default function Register() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <label htmlFor="usernameRegister">Username</label>
       <input
         ref={username}
         type="text"
         name="usernameRegister"
         id="usernameRegister"
+        required
       />
+      <label htmlFor="emailRegister">Email</label>
       <input
         ref={email}
         type="email"
         name="emailRegister"
         id="emailRegister"
+        required
       />
+      <label htmlFor="passwordRegister">Password</label>
       <input
         ref={password}
         type="password"
         name="passwordRegister"
         id="passwordRegister"
+        required
       />
+      <label htmlFor="passwordConfirmRegister">Confirm password</label>
       <input
         ref={passwordConfirm}
         type="password"
         name="passwordConfirmRegister"
         id="passwordConfirmRegister"
+        required
       />
       <button>Sign Up</button>
     </form>

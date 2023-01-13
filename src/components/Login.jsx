@@ -59,7 +59,7 @@ export default function Login() {
           password: passwordValue,
         }),
       })
-          .then((response) => JSON.parse(response))
+          .then((response) => response.json())
           .then((data) => {
             if (data.success) {
               localStorage.setItem('token', JSON.stringify(data.token));
@@ -76,23 +76,27 @@ export default function Login() {
 
   return (
     <form onSubmit={handleSubmit}>
+      <label htmlFor="usernameLogin">Username</label>
       <input
         ref={username}
         type="text"
         name="usernameLogin"
         id="usernameLogin"
       />
+      <label htmlFor="emailLogin">Email</label>
       <input
         ref={email}
         type="email"
         name="emailLogin"
         id="emailLogin"
       />
+      <label htmlFor="passwordLogin">Password</label>
       <input
         ref={password}
         type="password"
         name="passwordLogin"
         id="passwordLogin"
+        required
       />
       <button>Log In</button>
     </form>
