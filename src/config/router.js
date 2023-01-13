@@ -1,17 +1,17 @@
 import {createBrowserRouter} from 'react-router-dom';
 import Welcome from '../components/Welcome';
-import {isAuth} from '../utils/index';
+import App from '../components/App';
 
 const router = createBrowserRouter([
   {
-    path: '/welcome',
-    element: <Welcome />,
-  },
-  {
-    path: '*',
-    loader: () => {
-      return isAuth();
-    },
+    path: '/',
+    element: <App />,
+    children: [
+      {
+        path: 'welcome',
+        element: <Welcome />,
+      },
+    ],
   },
 ]);
 

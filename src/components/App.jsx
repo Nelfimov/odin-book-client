@@ -1,7 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Navbar, Footer} from './index';
-import {RouterProvider} from 'react-router-dom';
-import {router} from '../config';
+import {Outlet, useNavigate} from 'react-router-dom';
 import '../styles/App.css';
 
 /**
@@ -10,6 +9,7 @@ import '../styles/App.css';
  */
 export default function App() {
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -17,10 +17,14 @@ export default function App() {
     setLoggedIn(true);
   }, []);
 
+  useEffect(() => {
+    if (!isLoggedIn) navigate('/welcome');
+  }, [isLoggedIn]);
+
   return (
     <div className="App" data-testid='App'>
       <Navbar isLoggedIn={isLoggedIn} />
-      <RouterProvider router={router} />
+      <Outlet />
       <Footer />
     </div>
   );

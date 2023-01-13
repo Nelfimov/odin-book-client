@@ -1,11 +1,12 @@
-import {redirect} from 'react-router-dom';
-
 /**
- * Check if local storage has token.
+ * Check if token is valid.
  * @return {shape} Redirect to '/welcome'
  */
-export default function isAuth() {
+export default async function checkToken() {
   const token = localStorage.getItem('token');
 
-  if (!token) return redirect('/welcome');
+  fetch('http://localhost:3000/auth/');
+  if (!token) {
+    console.log('no token');
+  }
 }
