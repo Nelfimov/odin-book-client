@@ -1,8 +1,8 @@
 import {useEffect, useState} from 'react';
-import '../styles/App.css';
 import {Navbar, Footer} from './index';
 import {RouterProvider} from 'react-router-dom';
 import {router} from '../config';
+import '../styles/App.css';
 
 /**
  * Main app.
