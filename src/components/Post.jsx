@@ -10,7 +10,7 @@ export default function Post({post}) {
     <div className="post-container">
       <div className="top">
         <span>{post.author.username}</span>
-        <span>{post.creadetAt}</span>
+        <span>{new Date(post.createdAt).toDateString()}</span>
       </div>
       <h2>{post.title}</h2>
       <p>{post.text}</p>
