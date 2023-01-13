@@ -38,7 +38,9 @@ export default function App() {
   return (
     <div className="App" data-testid='App'>
       <Navbar isLogged={isLogged} logout={logout} />
-      { isLogged ? <Outlet /> : <Welcome login={login} />}
+      <main>
+        { isLogged ? <Outlet /> : <Welcome login={login} />}
+      </main>
       <Footer />
     </div>
   );

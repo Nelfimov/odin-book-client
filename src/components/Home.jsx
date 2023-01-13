@@ -36,8 +36,8 @@ export default function Home() {
   }
 
   return (
-    <main>
+    <div className="Home">
       { !loading && posts.map((post) => <Post key={post._id} post={post}/>)}
-    </main>
+    </div>
   );
 }
