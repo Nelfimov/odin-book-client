@@ -1,4 +1,5 @@
 import propTypes from 'prop-types';
+import '../styles/Post.css';
 
 /**
  * Post component.
@@ -15,7 +16,13 @@ export default function Post({post}) {
       <h2>{post.title}</h2>
       <p>{post.text}</p>
       <div className="bottom">
-        <button type='button'>Like</button>
+        <button type='button'>
+          <img src="images/icons/like.svg" alt="like" />
+          {post.likes.count}
+        </button>
+        <a href="http://">
+          <img src="images/icons/comment.svg" alt="comments" />
+        </a>
       </div>
     </div>
   );

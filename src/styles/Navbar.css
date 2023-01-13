@@ -39,10 +39,16 @@ header nav {
   font-weight: 500;
 }
 
+header button img {
+  width: 20px;
+  filter: invert();
+}
+
 header a {
   color: white;
   text-decoration: none;
   padding: var(--link-padding);
+  text-align: center;
 }
 
 header a:visited {

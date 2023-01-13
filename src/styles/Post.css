@@ -1,0 +1,48 @@
+.post-container {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid grey;
+  border-radius: 15px;
+  margin: 1rem 0;
+  background-color: white;
+}
+
+.post-container .top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.post-container h2,
+.post-container p,
+.post-container .top,
+.post-container .bottom {
+  padding: 15px;
+}
+
+.post-container .bottom {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.post-container .bottom > :nth-child(n + 1) {
+  margin-left: 10px;
+}
+
+.post-container .bottom button {
+  background-color: transparent;
+  border: 0;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  font-size: inherit;
+}
+
+.post-container .bottom button:hover {
+  background-color: rgb(217, 217, 217);
+}
+
+.post-container .bottom button img,
+.post-container .bottom a img {
+  width: 30px;
+}

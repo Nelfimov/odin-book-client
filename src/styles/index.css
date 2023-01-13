@@ -9,8 +9,22 @@ body {
 
 main {
   margin-top: 55px;
+  background-color: #f2f2f2;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
 }
 
 button:hover {
   cursor: pointer;
+}
+
+@media only screen and (max-width: 500px) {
+  main {
+    padding: 0 5px;
+  }
 }
