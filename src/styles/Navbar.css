@@ -1,0 +1,118 @@
+:root {
+  --main-color: rgb(112, 112, 255);
+  --secondary-color: rgb(179, 179, 255);
+  --hover-color: rgb(144, 144, 255);
+  --link-padding: 15px;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  background-color: var(--main-color);
+  width: 100%;
+  z-index: 9999;
+  color: white;
+}
+
+header .header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 85rem;
+  margin-inline: auto;
+  padding: 0 1vw;
+}
+
+header span.logo {
+  font-weight: 900;
+  font-size: 2.2rem;
+  letter-spacing: 2px;
+}
+
+header nav {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+  font-weight: 500;
+}
+
+header a {
+  color: white;
+  text-decoration: none;
+  padding: 15px;
+}
+
+header a:visited {
+  color: white;
+}
+
+header a:hover {
+  background-color: var(--hover-color);
+}
+
+header a.active {
+  background-color: var(--secondary-color);
+}
+
+header button {
+  background-color: var(--main-color);
+  border: 0;
+  color: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  padding: var(--link-padding);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+header button:hover {
+  background-color: var(--hover-color);
+}
+
+
+header button.menu {
+  display: none;
+}
+
+@media only screen and (max-width: 500px) {
+  header button.menu {
+    display: block;
+    padding: 0 1rem;
+  }
+
+  header nav.hidden {
+    display: none;
+  }
+
+  header nav.active {
+    position: absolute;
+    height: 100vh;
+    top: 50px;
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    background-color: rgba(64, 64, 64, 0.75);
+  }
+
+  header nav a,
+  header nav button {
+    width: 100%;
+  }
+
+  header button {
+    background-color: transparent;
+  }
+
+  header button img {
+    width: 20px;
+    filter: invert();
+  }
+
+  header button.menu img {
+    width: 45px;
+    filter: invert();
+  }
+}
