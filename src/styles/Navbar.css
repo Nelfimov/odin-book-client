@@ -32,6 +32,10 @@ header span.logo {
   padding-left: 5px;
 }
 
+header span.logo a {
+  padding: 0;
+}
+
 header nav {
   display: flex;
   align-items: center;
