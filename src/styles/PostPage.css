@@ -1,0 +1,22 @@
+.Post {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.Post .comments-container {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border-radius: 15px;
+  padding: 15px;
+}
+
+.Post .comments-container .new-comment {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 50%;
+  margin-inline: auto;
+  min-width: 320px;
+}

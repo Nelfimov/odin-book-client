@@ -1,5 +1,5 @@
 import {createBrowserRouter} from 'react-router-dom';
-import {App, Home, Welcome, Post} from '../pages';
+import {App, Home, Welcome, PostPage} from '../pages';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +16,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'posts/:postID',
-        element: <Post />,
+        element: <PostPage />,
       },
     ],
   },

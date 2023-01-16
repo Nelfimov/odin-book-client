@@ -6,7 +6,7 @@ import '../styles/Post.css';
  * @param {shape} post Post object
  * @return {JSX} JSX
  */
-export default function Post({post}) {
+export default function Post({post, isLink}) {
   return (
     <div className="post-container">
 
@@ -41,4 +41,5 @@ export default function Post({post}) {
 
 Post.propTypes = {
   post: propTypes.object.isRequired,
+  isLink: propTypes.bool.isRequired,
 };

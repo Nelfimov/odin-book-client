@@ -27,7 +27,6 @@ export default function Home() {
       'Authorization': JSON.parse(localStorage.getItem('token')),
     });
     const response = await fetch('http://localhost:3000/posts', {
-      method: 'GET',
       headers,
     });
     const data = await response.json();
