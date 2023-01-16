@@ -25,7 +25,7 @@ main button {
 
 main input {
   outline: none;
-  border: 1px solid blue;
+  border: 1px solid rgb(209, 209, 209);
   border-radius: 5px;
   padding: 5px;
   font-size: inherit;

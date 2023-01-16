@@ -77,28 +77,34 @@ export default function Login({login}) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="usernameLogin">Username</label>
-      <input
-        ref={username}
-        type="text"
-        name="usernameLogin"
-        id="usernameLogin"
-      />
-      <label htmlFor="emailLogin">Email</label>
-      <input
-        ref={email}
-        type="email"
-        name="emailLogin"
-        id="emailLogin"
-      />
-      <label htmlFor="passwordLogin">Password</label>
-      <input
-        ref={password}
-        type="password"
-        name="passwordLogin"
-        id="passwordLogin"
-        required
-      />
+      <div className="input">
+        <label htmlFor="usernameLogin">Username</label>
+        <input
+          ref={username}
+          type="text"
+          name="usernameLogin"
+          id="usernameLogin"
+        />
+      </div>
+      <div className="input">
+        <label htmlFor="emailLogin">Email</label>
+        <input
+          ref={email}
+          type="email"
+          name="emailLogin"
+          id="emailLogin"
+        />
+      </div>
+      <div className="input">
+        <label htmlFor="passwordLogin">Password</label>
+        <input
+          ref={password}
+          type="password"
+          name="passwordLogin"
+          id="passwordLogin"
+          required
+        />
+      </div>
       <button>Log In</button>
     </form>
   );
