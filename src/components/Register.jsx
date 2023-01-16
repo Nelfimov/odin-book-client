@@ -86,38 +86,46 @@ export default function Register({login}) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="usernameRegister">Username</label>
-      <input
-        ref={username}
-        type="text"
-        name="usernameRegister"
-        id="usernameRegister"
-        required
-      />
-      <label htmlFor="emailRegister">Email</label>
-      <input
-        ref={email}
-        type="email"
-        name="emailRegister"
-        id="emailRegister"
-        required
-      />
-      <label htmlFor="passwordRegister">Password</label>
-      <input
-        ref={password}
-        type="password"
-        name="passwordRegister"
-        id="passwordRegister"
-        required
-      />
-      <label htmlFor="passwordConfirmRegister">Confirm password</label>
-      <input
-        ref={passwordConfirm}
-        type="password"
-        name="passwordConfirmRegister"
-        id="passwordConfirmRegister"
-        required
-      />
+      <div className="input">
+        <label htmlFor="usernameRegister">Username</label>
+        <input
+          ref={username}
+          type="text"
+          name="usernameRegister"
+          id="usernameRegister"
+          required
+        />
+      </div>
+      <div className="input">
+        <label htmlFor="emailRegister">Email</label>
+        <input
+          ref={email}
+          type="email"
+          name="emailRegister"
+          id="emailRegister"
+          required
+        />
+      </div>
+      <div className="input">
+        <label htmlFor="passwordRegister">Password</label>
+        <input
+          ref={password}
+          type="password"
+          name="passwordRegister"
+          id="passwordRegister"
+          required
+        />
+      </div>
+      <div className="input">
+        <label htmlFor="passwordConfirmRegister">Confirm password</label>
+        <input
+          ref={passwordConfirm}
+          type="password"
+          name="passwordConfirmRegister"
+          id="passwordConfirmRegister"
+          required
+        />
+      </div>
       <button>Sign Up</button>
     </form>
   );

@@ -55,11 +55,11 @@ header a:visited {
   color: white;
 }
 
-header a:hover {
+header nav a:hover {
   background-color: var(--hover-color);
 }
 
-header a.active {
+header nav a.active {
   background-color: var(--secondary-color);
 }
 

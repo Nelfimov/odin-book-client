@@ -28,7 +28,7 @@ export default function Navbar({isLogged, logout}) {
   return (
     <header>
       <div className="header-container">
-        <span className="logo">ODIN-BOOK</span>
+        <span className="logo"><a href="/">ODIN-BOOK</a></span>
         { isLogged ?
         <nav className="hidden">
           <NavLink to='/'>Home</NavLink>
