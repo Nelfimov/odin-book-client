@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Login, Register} from './index';
+import {Login, Register} from '../components/index';
 import propTypes from 'prop-types';
 import '../styles/Welcome.css';
 

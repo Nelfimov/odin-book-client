@@ -29,10 +29,6 @@
   justify-content: flex-start;
 }
 
-.post-container .bottom > :nth-child(n + 1) {
-  margin-left: 10px;
-}
-
 .post-container .bottom button {
   background-color: transparent;
   border: 0;
@@ -45,6 +41,7 @@
 .post-container .bottom a {
   padding: 10px;
   border-radius: 10px;
+  transform: translateY(5%);
 }
 
 .post-container .bottom button:hover {

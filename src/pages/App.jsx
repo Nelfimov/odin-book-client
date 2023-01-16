@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Navbar, Footer} from './index';
+import {Navbar, Footer} from '../components/index';
 import {Outlet} from 'react-router-dom';
 import {Welcome} from './index';
 import '../styles/App.css';
