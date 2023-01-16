@@ -42,7 +42,24 @@
   font-size: inherit;
 }
 
+.post-container .bottom a {
+  padding: 10px;
+  border-radius: 10px;
+}
+
 .post-container .bottom button:hover {
+  background-color: rgb(217, 217, 217);
+}
+
+.post-container .bottom button:hover img {
+  filter: invert(55%) sepia(83%) saturate(6680%) hue-rotate(345deg) brightness(97%) contrast(89%);
+}
+
+.post-container .bottom a:hover img {
+  filter: invert(57%) sepia(64%) saturate(6403%) hue-rotate(220deg) brightness(99%) contrast(105%);
+}
+
+.post-container .bottom a:hover {
   background-color: rgb(217, 217, 217);
 }
 
