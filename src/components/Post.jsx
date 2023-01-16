@@ -25,12 +25,12 @@ export default function Post({post}) {
       <div className="bottom">
 
         <button type='button'>
-          <img src="images/icons/like.svg" alt="like" />
+          <img src="/images/icons/like.svg" alt="like" />
           {post.likes.count}
         </button>
 
         <a href={`posts/${post._id}#comments`}>
-          <img src="images/icons/comment.svg" alt="comments" />
+          <img src="/images/icons/comment.svg" alt="comments" />
         </a>
 
       </div>

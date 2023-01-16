@@ -34,7 +34,7 @@ export default function Navbar({isLogged, logout}) {
           <NavLink to='/'>Home</NavLink>
           <NavLink to='/profile'>Profile</NavLink>
           <button onClick={logout}>
-            <img src="images/icons/logout.svg" alt="Log out" />
+            <img src="/images/icons/logout.svg" alt="Log out" />
             Log out
           </button>
         </nav> :
@@ -43,7 +43,7 @@ export default function Navbar({isLogged, logout}) {
         </nav>
         }
         <button className="menu" onClick={showMenu}>
-          <img src="images/icons/menu.svg" alt="Menu" />
+          <img src="/images/icons/menu.svg" alt="Menu" />
         </button>
       </div>
     </header>
