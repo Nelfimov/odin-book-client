@@ -7,12 +7,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+html {
+  height: 100%;
+}
+
 main {
   margin-top: 50px;
   padding-top: 20px;
   max-width: 80rem;
   margin-inline: auto;
-  min-height: 81vh;
+  min-height: 80vh;
 }
 
 main a {
