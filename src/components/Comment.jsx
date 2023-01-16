@@ -1,4 +1,5 @@
 import propTypes from 'prop-types';
+import '../styles/Comment.css';
 
 /**
  * Comment component.
@@ -10,8 +11,8 @@ export default function Comment({comment}) {
     <div className="comment-container">
 
       <div className="top">
-        <span>{comment.author.username}</span>
-        <span>{comment.createdAt}</span>
+        <span className='username'>{comment.author.username}</span>
+        <span>{new Date(comment.createdAt).toDateString()}</span>
       </div>
 
       <p>{comment.text}</p>

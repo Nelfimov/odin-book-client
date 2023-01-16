@@ -81,17 +81,19 @@ export default function Post() {
         <PostComponent post={post} isLink={false} />
       }
       <div className="comments-container">
-        <div className="new-comment">
+        <form>
           <textarea name="column" id="column" rows="5"></textarea>
           <button>Submit comment</button>
+        </form>
+        <div className="comments">
+          {
+            loadingComments ?
+            <p>Loading</p> :
+            comments.map((comment) =>
+              <CommentComponent key={comment._id} comment={comment} />,
+            )
+          }
         </div>
-        {
-        loadingComments ?
-        <p>Loading</p> :
-        comments.map((comment) =>
-          <CommentComponent key={comment._id} comment={comment} />,
-        )
-        }
       </div>
     </div>
   );

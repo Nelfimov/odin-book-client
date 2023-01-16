@@ -1,0 +1,15 @@
+.comment-container {
+  display: grid;
+  grid-auto-flow: row;
+  gap: 10px;
+  margin: 1.5rem 0;
+}
+
+.comment-container .top {
+  display: flex;
+  justify-content: space-between;
+}
+
+.comment-container .top span.username {
+  font-weight: 700;
+}

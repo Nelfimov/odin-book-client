@@ -1,15 +1,15 @@
 import {useEffect, useState} from 'react';
-import {Navbar, Footer} from '../components/index';
+import {Navbar, Footer} from './components/index';
 import {Outlet} from 'react-router-dom';
-import {Welcome} from './index';
-import '../styles/App.css';
+import {Welcome} from './pages/index';
+import './styles/App.css';
 
 /**
  * Main app.
  * @return {JSX} JSX
 */
 export default function App() {
-  const [isLogged, setIsLogged] = useState(false);
+  const [isLogged, setIsLogged] = useState(true);
 
   useEffect(() => {
     const user = localStorage.getItem('token');

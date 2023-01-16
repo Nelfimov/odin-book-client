@@ -10,13 +10,31 @@
   background-color: white;
   border-radius: 15px;
   padding: 15px;
+  margin-bottom: 30px;
 }
 
-.Post .comments-container .new-comment {
+.Post .comments-container form {
   display: flex;
   flex-direction: column;
   gap: 15px;
   width: 50%;
   margin-inline: auto;
   min-width: 320px;
+}
+
+.Post .comments-container form textarea {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  border-radius: 15px;
+  padding: 5px;
+  outline: none;
+  border: 1px solid grey;
+}
+
+.Post .comments-container .comments {
+  width: 47%;
+  margin-inline: auto;
+  min-width: 320px;
+  margin-top: 30px;
 }

@@ -13,7 +13,7 @@ export default function Post({post, isLink}) {
       <a href={`posts/${post._id}`}>
 
         <div className="top">
-          <span>{post.author.username}</span>
+          <span className='username'>{post.author.username}</span>
           <span>{new Date(post.createdAt).toDateString()}</span>
         </div>
 
