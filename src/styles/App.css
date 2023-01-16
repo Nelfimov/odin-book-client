@@ -1,4 +1,3 @@
-main {
-  max-width: 80rem;
-  margin-inline: auto;
+.App {
+  background-color: #f2f2f2;
 }

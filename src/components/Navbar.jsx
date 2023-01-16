@@ -30,7 +30,7 @@ export default function Navbar({isLogged, logout}) {
       <div className="header-container">
         <span className="logo">ODIN-BOOK</span>
         { isLogged ?
-        <nav className="active">
+        <nav className="hidden">
           <NavLink to='/'>Home</NavLink>
           <NavLink to='/profile'>Profile</NavLink>
           <button onClick={logout}>
@@ -38,7 +38,7 @@ export default function Navbar({isLogged, logout}) {
             Log out
           </button>
         </nav> :
-        <nav className="active">
+        <nav className="hidden">
           <a href="https://github.com/nelfimov">Github</a>
         </nav>
         }
