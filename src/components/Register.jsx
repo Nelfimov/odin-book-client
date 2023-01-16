@@ -106,7 +106,7 @@ export default function Register({login}) {
           required
         />
       </div>
-      <div className="input">
+      <div className="input password-register">
         <label htmlFor="passwordRegister">Password</label>
         <input
           ref={password}
@@ -116,7 +116,7 @@ export default function Register({login}) {
           required
         />
       </div>
-      <div className="input">
+      <div className="input password-register">
         <label htmlFor="passwordConfirmRegister">Confirm password</label>
         <input
           ref={passwordConfirm}
