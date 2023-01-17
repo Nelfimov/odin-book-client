@@ -45,35 +45,32 @@ export default function Post({post: postProp, isLink}) {
     }
     setLiked(!liked);
     setPost(newPost);
+    e.target.classList.toggle('liked');
   }
 
   return (
     <div className="post-container">
 
+      <div className="top">
+        <Link to={`/profile/${post.author._id}`}>
+          <span>{post.author.username}</span>
+        </Link>
+        <span>
+          {`${new Date(post.createdAt).toLocaleTimeString()} 
+                ${new Date(post.createdAt).toDateString()}`}
+        </span>
+      </div>
       {
-        isLink ?
+            isLink ?
           <Link to={`/posts/${post._id}`}>
-            <div className="top">
-              <Link to={`/profile/${post.author._id}`}>
-                <span>{post.author.username}</span>
-              </Link>
-              <span>{new Date(post.createdAt).toDateString()}</span>
-            </div>
             <h2>{post.title}</h2>
             <p>{post.text}</p>
           </Link> :
           <>
-            <div className="top">
-              <Link to={`/posts/${post.author._id}`}>
-                <span>{post.author.username}</span>
-              </Link>
-              <span>{new Date(post.createdAt).toDateString()}</span>
-            </div>
             <h2>{post.title}</h2>
             <p>{post.text}</p>
           </>
       }
-
       <div className="bottom">
 
         <button data-post={post._id} type='button' onClick={likePost}>

@@ -52,7 +52,8 @@
   background-color: rgb(217, 217, 217);
 }
 
-.post-container .bottom button:hover img {
+.post-container .bottom button:hover img,
+.post-container .bottom .liked {
   filter: invert(55%) sepia(83%) saturate(6680%) hue-rotate(345deg) brightness(97%) contrast(89%);
 }
 
