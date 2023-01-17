@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useState, useRef} from 'react';
 import {useParams} from 'react-router-dom';
 import {Post as PostComponent} from '../components';
 import {Comment as CommentComponent} from '../components';
@@ -14,6 +14,7 @@ export default function Post() {
   const [comments, setComments] = useState([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
+  const commentText = useRef();
 
   useEffect(() => {
     getPost()
@@ -73,6 +74,32 @@ export default function Post() {
     }
   }
 
+  /**
+   * Create comment.
+   * @param {shape} e Event
+   */
+  async function createComment(e) {
+    try {
+      e.preventDefault();
+
+      const response = await fetch(
+          `http://localhost:3000/posts/${postID}/comments`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({
+              text: commentText.current.value,
+            }),
+          },
+      );
+      const data = await response.json();
+      if (data.success) {
+        setComments(await getComments());
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  }
+
   return (
     <div className="Post">
       {
@@ -81,11 +108,13 @@ export default function Post() {
         <PostComponent post={post} isLink={false} />
       }
       <div className="comments-container">
-        <form>
-          <textarea name="column" id="column" rows="5"></textarea>
+        <form onSubmit={createComment}>
+          <textarea ref={commentText} name="column" id="column" rows="5">
+
+          </textarea>
           <button>Submit comment</button>
         </form>
-        <div className="comments">
+        <div className="comments" id='comments'>
           {
             loadingComments ?
             <p>Loading</p> :

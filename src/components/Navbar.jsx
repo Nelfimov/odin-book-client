@@ -1,4 +1,4 @@
-import {NavLink} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 import propTypes from 'prop-types';
 import '../styles/Navbar.css';
 import {useEffect} from 'react';
@@ -28,7 +28,9 @@ export default function Navbar({isLogged, logout}) {
   return (
     <header>
       <div className="header-container">
-        <span className="logo"><a href="/">ODIN-BOOK</a></span>
+        <span className="logo">
+          <Link to='/'>ODIN BOOK</Link>
+        </span>
         { isLogged ?
         <nav className="hidden">
           <NavLink to='/'>Home</NavLink>

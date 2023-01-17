@@ -65,7 +65,7 @@ export default function Login({login}) {
           .then((data) => {
             if (data.success) {
               localStorage.setItem('token', JSON.stringify(data.token));
-              login();
+              return login();
             }
             console.log(data.message);
           })

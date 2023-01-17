@@ -1,6 +1,6 @@
 import {useEffect, useState} from 'react';
 import {Navbar, Footer} from './components/index';
-import {Outlet} from 'react-router-dom';
+import {Outlet, useLocation} from 'react-router-dom';
 import {Welcome} from './pages/index';
 import './styles/App.css';
 
@@ -10,6 +10,7 @@ import './styles/App.css';
 */
 export default function App() {
   const [isLogged, setIsLogged] = useState(true);
+  const {pathname, hash, key} = useLocation();
 
   useEffect(() => {
     const user = localStorage.getItem('token');
@@ -19,6 +20,18 @@ export default function App() {
       setIsLogged(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (hash === '') {
+      window.scrollTo(0, 0);
+    } else {
+      setTimeout(() => {
+        const id = hash.replace('#', '');
+        const element = document.getElementById(id);
+        if (element) element.scrollIntoView();
+      }, 100);
+    }
+  }, [pathname, hash, key]);
 
   /**
    * Log out.

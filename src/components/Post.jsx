@@ -1,3 +1,4 @@
+import {Link} from 'react-router-dom';
 import propTypes from 'prop-types';
 import '../styles/Post.css';
 
@@ -12,14 +13,14 @@ export default function Post({post, isLink}) {
 
       {
         isLink ?
-          <a href={`posts/${post._id}`}>
+          <Link to={`posts/${post._id}`}>
             <div className="top">
               <span>{post.author.username}</span>
               <span>{new Date(post.createdAt).toDateString()}</span>
             </div>
             <h2>{post.title}</h2>
             <p>{post.text}</p>
-          </a> :
+          </Link> :
           <>
             <div className="top">
               <span>{post.author.username}</span>
@@ -37,9 +38,11 @@ export default function Post({post, isLink}) {
           {post.likes.count}
         </button>
 
-        <a href={`posts/${post._id}#comments`}>
-          <img src="/images/icons/comment.svg" alt="comments" />
-        </a>
+        {
+          isLink && <Link to={`posts/${post._id}#comments`} >
+            <img src="/images/icons/comment.svg" alt="comments" />
+          </ Link>
+        }
 
       </div>
 
