@@ -1,16 +1,17 @@
 import {useEffect, useState} from 'react';
 import Post from '../components/Post';
+import propTypes from 'prop-types';
 
 /**
  * Home page.
  * @return {JSX} JSX
  */
-export default function Home() {
+export default function Home({friends}) {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getPosts()
+    getPosts(friends)
         .then((posts) => {
           setPosts(posts);
           setLoading(false);
@@ -20,13 +21,16 @@ export default function Home() {
 
   /**
    * Get posts.
+   * @param {bool} bool - should it get from friends.
    */
-  async function getPosts() {
+  async function getPosts(bool) {
     const headers = new Headers({
       'Content-Type': 'application/json',
       'Authorization': JSON.parse(localStorage.getItem('token')),
     });
-    const response = await fetch('http://localhost:3000/posts', {
+    let url = 'http://localhost:3000/posts';
+    if (bool) url += '/friends';
+    const response = await fetch(url, {
       headers,
     });
     const data = await response.json();
@@ -42,3 +46,7 @@ export default function Home() {
     </div>
   );
 }
+
+Home.propTypes = {
+  friends: propTypes.bool.isRequired,
+};

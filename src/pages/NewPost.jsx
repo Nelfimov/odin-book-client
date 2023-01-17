@@ -53,7 +53,13 @@ export default function NewPost() {
           id="title"
           placeholder='Title'
         />
-        <textarea ref={postText} name="column" id="column" rows="5" />
+        <textarea
+          ref={postText}
+          name="column"
+          id="column"
+          rows="5"
+          placeholder='Post text'
+        />
         <button>Create new post</button>
       </form>
     </div>

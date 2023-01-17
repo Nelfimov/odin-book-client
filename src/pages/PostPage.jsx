@@ -94,6 +94,7 @@ export default function Post() {
       const data = await response.json();
       if (data.success) {
         setComments(await getComments());
+        commentText.current.value = '';
       }
     } catch (err) {
       console.log(err);

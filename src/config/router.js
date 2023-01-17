@@ -1,5 +1,5 @@
 import {createBrowserRouter} from 'react-router-dom';
-import {App, Home, Welcome, PostPage, NewPost} from '../pages';
+import {App, Home, Welcome, PostPage, NewPost, Discover} from '../pages';
 
 const router = createBrowserRouter([
   {
@@ -8,7 +8,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '',
-        element: <Home />,
+        element: <Home friends={true} />,
       },
       {
         path: 'welcome',
@@ -21,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: 'new',
         element: <NewPost />,
+      },
+      {
+        path: 'discover',
+        element: <Discover />,
       },
     ],
   },
