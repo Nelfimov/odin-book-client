@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {Link} from 'react-router-dom';
 import propTypes from 'prop-types';
 import '../styles/Post.css';
@@ -7,7 +8,10 @@ import '../styles/Post.css';
  * @param {shape} post Post object
  * @return {JSX} JSX
  */
-export default function Post({post, isLink}) {
+export default function Post({post: postProp, isLink}) {
+  const [post, setPost] = useState(postProp);
+  const [liked, setLiked] = useState(false);
+
   /**
    * Like current post.
    * @param {shape} e Event.
@@ -26,6 +30,21 @@ export default function Post({post, isLink}) {
     );
     const data = await response.json();
     if (!data.success) return console.log(data.message);
+
+    let newPost;
+    if (liked) {
+      newPost = {
+        ...post,
+        [post.likes.count]: --post.likes.count,
+      };
+    } else {
+      newPost = {
+        ...post,
+        [post.likes.count]: ++post.likes.count,
+      };
+    }
+    setLiked(!liked);
+    setPost(newPost);
   }
 
   return (
