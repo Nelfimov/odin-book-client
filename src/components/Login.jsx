@@ -63,11 +63,14 @@ export default function Login({login}) {
       })
           .then((response) => response.json())
           .then((data) => {
-            if (data.success) {
-              localStorage.setItem('token', JSON.stringify(data.token));
+            const {success, message, token, user} = data;
+            if (success) {
+              localStorage.setItem('token', JSON.stringify(token));
+              localStorage.setItem('userID', JSON.stringify(user._id));
+              localStorage.setItem('username', JSON.stringify(user.username));
               return login();
             }
-            console.log(data.message);
+            console.log(message);
           })
           .catch((err) => console.log(err));
     } catch (err) {

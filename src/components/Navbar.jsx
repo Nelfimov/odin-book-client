@@ -14,7 +14,7 @@ export default function Navbar({isLogged, logout}) {
    * @param {shape} e Event object.
    */
   function showMenu(e) {
-    const nav = document.querySelector('nav');
+    const nav = document.querySelector('header nav');
     nav.className = nav.className === 'hidden' ? 'active' : 'hidden';
   }
 
@@ -23,7 +23,7 @@ export default function Navbar({isLogged, logout}) {
         .forEach((element) => {
           element.addEventListener('click', showMenu);
         });
-  });
+  }, []);
 
   return (
     <header>
@@ -35,8 +35,11 @@ export default function Navbar({isLogged, logout}) {
         <nav className="hidden">
           <NavLink to='/'>Home</NavLink>
           <NavLink to='/discover'>Discover</NavLink>
-          <NavLink to='/new'>New</NavLink>
-          <NavLink to='/profile'>Profile</NavLink>
+          <NavLink to='/posts/new'>New</NavLink>
+          <NavLink
+            to={`/profile/${JSON.parse(localStorage.getItem('userID'))}`}>
+            {(() => JSON.parse(localStorage.getItem('username')))()}
+          </NavLink>
           <button onClick={logout}>
             <img src="/images/icons/logout.svg" alt="Log out" />
             Log out

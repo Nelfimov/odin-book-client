@@ -33,7 +33,7 @@ export default function Post({post, isLink}) {
 
       {
         isLink ?
-          <Link to={`posts/${post._id}`}>
+          <Link to={`/posts/${post._id}`}>
             <div className="top">
               <span>{post.author.username}</span>
               <span>{new Date(post.createdAt).toDateString()}</span>

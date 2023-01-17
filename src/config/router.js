@@ -1,5 +1,7 @@
 import {createBrowserRouter} from 'react-router-dom';
-import {App, Home, Welcome, PostPage, NewPost, Discover} from '../pages';
+import {
+  App, Home, Welcome, PostPage, NewPost, Discover, Profile,
+} from '../pages';
 
 const router = createBrowserRouter([
   {
@@ -15,16 +17,25 @@ const router = createBrowserRouter([
         element: <Welcome />,
       },
       {
-        path: 'posts/:postID',
-        element: <PostPage />,
-      },
-      {
-        path: 'new',
-        element: <NewPost />,
+        path: 'posts',
+        children: [
+          {
+            path: 'new',
+            element: <NewPost />,
+          },
+          {
+            path: ':postID',
+            element: <PostPage />,
+          },
+        ],
       },
       {
         path: 'discover',
         element: <Discover />,
+      },
+      {
+        path: 'profile/:userID',
+        element: <Profile />,
       },
     ],
   },
