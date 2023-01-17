@@ -36,7 +36,9 @@ export default function Home() {
 
   return (
     <div className="Home">
-      { !loading && posts.map((post) => <Post key={post._id} post={post}/>)}
+      { !loading && posts.map(
+          (post) => <Post key={post._id} post={post} isLink={true}/>,
+      )}
     </div>
   );
 }

@@ -27,7 +27,8 @@
   font-size: inherit;
   font-weight: inherit;
   border-radius: 15px;
-  padding: 5px;
+  padding: 15px;
+  resize: none;
   outline: none;
   border: 1px solid grey;
 }

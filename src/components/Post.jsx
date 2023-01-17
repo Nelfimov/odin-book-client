@@ -10,17 +10,25 @@ export default function Post({post, isLink}) {
   return (
     <div className="post-container">
 
-      <a href={`posts/${post._id}`}>
-
-        <div className="top">
-          <span className='username'>{post.author.username}</span>
-          <span>{new Date(post.createdAt).toDateString()}</span>
-        </div>
-
-        <h2>{post.title}</h2>
-
-        <p>{post.text}</p>
-      </a>
+      {
+        isLink ?
+          <a href={`posts/${post._id}`}>
+            <div className="top">
+              <span>{post.author.username}</span>
+              <span>{new Date(post.createdAt).toDateString()}</span>
+            </div>
+            <h2>{post.title}</h2>
+            <p>{post.text}</p>
+          </a> :
+          <>
+            <div className="top">
+              <span>{post.author.username}</span>
+              <span>{new Date(post.createdAt).toDateString()}</span>
+            </div>
+            <h2>{post.title}</h2>
+            <p>{post.text}</p>
+          </>
+      }
 
       <div className="bottom">
 
