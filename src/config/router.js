@@ -27,11 +27,11 @@ const router = createBrowserRouter([
             path: ':postID',
             element: <PostPage />,
           },
+          {
+            path: 'discover',
+            element: <Discover />,
+          },
         ],
-      },
-      {
-        path: 'discover',
-        element: <Discover />,
       },
       {
         path: 'profile/:userID',

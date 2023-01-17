@@ -34,7 +34,7 @@ export default function Navbar({isLogged, logout}) {
         { isLogged ?
         <nav className="hidden">
           <NavLink to='/'>Home</NavLink>
-          <NavLink to='/discover'>Discover</NavLink>
+          <NavLink to='/posts/discover'>Discover</NavLink>
           <NavLink to='/posts/new'>New</NavLink>
           <NavLink
             to={`/profile/${JSON.parse(localStorage.getItem('userID'))}`}>

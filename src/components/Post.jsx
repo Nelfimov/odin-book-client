@@ -54,7 +54,9 @@ export default function Post({post: postProp, isLink}) {
         isLink ?
           <Link to={`/posts/${post._id}`}>
             <div className="top">
-              <span>{post.author.username}</span>
+              <Link to={`/profile/${post.author._id}`}>
+                <span>{post.author.username}</span>
+              </Link>
               <span>{new Date(post.createdAt).toDateString()}</span>
             </div>
             <h2>{post.title}</h2>
@@ -62,7 +64,9 @@ export default function Post({post: postProp, isLink}) {
           </Link> :
           <>
             <div className="top">
-              <span>{post.author.username}</span>
+              <Link to={`/posts/${post.author._id}`}>
+                <span>{post.author.username}</span>
+              </Link>
               <span>{new Date(post.createdAt).toDateString()}</span>
             </div>
             <h2>{post.title}</h2>
@@ -78,7 +82,7 @@ export default function Post({post: postProp, isLink}) {
         </button>
 
         {
-          isLink && <Link to={`posts/${post._id}#comments`} >
+          isLink && <Link to={`/posts/${post._id}#comments`} >
             <img src="/images/icons/comment.svg" alt="comments" />
           </ Link>
         }
