@@ -34,6 +34,7 @@ export default function Navbar({isLogged, logout}) {
         { isLogged ?
         <nav className="hidden">
           <NavLink to='/'>Home</NavLink>
+          <NavLink to='/new'>New</NavLink>
           <NavLink to='/profile'>Profile</NavLink>
           <button onClick={logout}>
             <img src="/images/icons/logout.svg" alt="Log out" />

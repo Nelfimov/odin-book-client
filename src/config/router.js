@@ -1,5 +1,5 @@
 import {createBrowserRouter} from 'react-router-dom';
-import {App, Home, Welcome, PostPage} from '../pages';
+import {App, Home, Welcome, PostPage, NewPost} from '../pages';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +17,10 @@ const router = createBrowserRouter([
       {
         path: 'posts/:postID',
         element: <PostPage />,
+      },
+      {
+        path: 'new',
+        element: <NewPost />,
       },
     ],
   },

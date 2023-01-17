@@ -1,0 +1,19 @@
+.NewPost form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 50%;
+  min-width: 320px;
+  margin-inline: auto;
+  gap: 20px;
+}
+
+.NewPost form textarea {
+  resize: none;
+  border: 0;
+  border-radius: 15px;
+  padding: 15px;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
