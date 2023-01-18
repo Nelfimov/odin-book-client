@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef, FormEvent } from 'react'
 import { useParams } from 'react-router-dom'
 import { Post as PostComponent, Comment as CommentComponent } from '../components'
-import { Comment, Data, Post } from '../types'
+import { Comment, Post } from '../types'
+import { createComment, getComments, getPost } from '../api'
 import '../styles/PostPage.css'
 
 /**
@@ -13,84 +14,33 @@ export function PostPage (): JSX.Element {
   const [comments, setComments] = useState<Comment[] | undefined>([])
   const [loadingPosts, setLoadingPosts] = useState(true)
   const [loadingComments, setLoadingComments] = useState(true)
-  const commentText = useRef <HTMLTextAreaElement>(null)
+  const commentText = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
-    getPost()
+    getPost(postID)
       .then((post) => {
         setPost(post)
         setLoadingPosts(false)
       })
       .catch((err) => { console.log(err) })
-    getComments()
+    getComments(postID)
       .then((comments) => {
         setComments(comments)
         setLoadingComments(false)
       })
-      .catch((err: Error) => { console.log(err) })
+      .catch((err) => { console.log(err) })
   }, [])
 
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-    Authorization: JSON.parse(localStorage.getItem('token') ?? '')
-  })
-
-  /**
-   * Get comments to current post.
-   */
-  async function getComments (): Promise<Comment[] | undefined> {
-    try {
-      const response = await fetch(
-          `http://localhost:3000/posts/${postID ?? ''}/comments`, {
-            headers
-          }
-      )
-      const data: Data = await response.json()
-      if (data.success) return data.comments
-      return []
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  /**
-   * Get single post.
-   */
-  async function getPost (): Promise<Post | undefined> {
-    try {
-      const response = await fetch(
-          `http://localhost:3000/posts/${postID ?? ''}`, {
-            headers
-          }
-      )
-      const data: Data = await response.json()
-      return data.post
-    } catch (err) {
-      console.log(err)
-    }
-  }
-
-  /**
-   * Create comment.
-   */
-  function createComment (e: FormEvent<HTMLFormElement>): void {
+  function handleSubmit (e: FormEvent<HTMLFormElement>): void {
     e.preventDefault()
-    const ref = commentText.current
-    if (ref == null) return
-    fetch(
-          `http://localhost:3000/posts/${postID ?? ''}/comments`, {
-            method: 'POST',
-            headers,
-            body: JSON.stringify({
-              text: ref.value
-            })
-          }
-    )
-      .then(async (response) => await response.json())
-      .then(async (data: Data) => {
-        if (data.success) {
-          setComments(await getComments())
-          ref.value = ''
+
+    const element = commentText.current as HTMLTextAreaElement
+
+    createComment(postID, element.value)
+      .then(async (result: boolean) => {
+        if (result) {
+          setComments(await getComments(postID))
+          element.value = ''
         }
       })
       .catch((err: Error) => { console.log(err) })
@@ -104,7 +54,7 @@ export function PostPage (): JSX.Element {
           : (post != null) && <PostComponent post={post} isLink={false} />
       }
       <div className="comments-container">
-        <form onSubmit={createComment}>
+        <form onSubmit={handleSubmit}>
           <textarea ref={commentText} name="column" id="column" rows={5}>
 
           </textarea>

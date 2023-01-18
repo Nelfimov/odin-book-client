@@ -92,3 +92,26 @@ export async function createPost (
     return false
   }
 }
+
+/**
+   * Get single post.
+   */
+export async function getPost (
+  postID: string | undefined
+): Promise<Post | undefined> {
+  try {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      Authorization: JSON.parse(localStorage.getItem('token') ?? '""')
+    })
+    const response = await fetch(
+          `http://localhost:3000/posts/${postID ?? ''}`, {
+            headers
+          }
+    )
+    const data: Data = await response.json()
+    return data.post
+  } catch (err) {
+    console.log(err)
+  }
+}
