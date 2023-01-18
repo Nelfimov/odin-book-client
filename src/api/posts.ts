@@ -52,7 +52,7 @@ export async function getPosts (isCurrentUser: boolean): Promise<Post[] | undefi
     Authorization: JSON.parse(localStorage.getItem('token') ?? '""')
   })
   let url = 'http://localhost:3000/posts'
-  if (!isCurrentUser) url += '/friends'
+  if (isCurrentUser) url += '/friends'
   const response = await fetch(
     url, {
       headers
