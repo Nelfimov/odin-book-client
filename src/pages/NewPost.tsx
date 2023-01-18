@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { FormEvent, useRef } from 'react'
-import { Data } from '../types'
 import '../styles/NewPost.css'
+import { createPost } from '../api'
 
 /**
  * Post page.
@@ -11,43 +11,22 @@ export function NewPost (): JSX.Element {
   const postText = useRef<HTMLTextAreaElement>(null)
   const navigate = useNavigate()
 
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-    Authorization: JSON.parse(localStorage.getItem('token') ?? '')
-  })
-
-  /**
-   * Create post.
-   */
-  function createPost (e: FormEvent<HTMLFormElement>): void {
+  function handleSubmit (e: FormEvent<HTMLFormElement>): void {
     e.preventDefault()
 
-    const titleInput = titleText.current
-    const textInput = postText.current
+    const title = titleText.current?.value
+    const text = postText.current?.value
 
-    if (titleInput == null || textInput == null) return
-
-    fetch(
-      'http://localhost:3000/posts', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          title: titleInput.value,
-          text: textInput.value
-        })
-      }
-    )
-      .then(async (response) => await response.json())
-      .then((data: Data) => {
-        if (data.success) {
-          navigate('/')
-        }
-      }).catch((err) => { console.log(err) })
+    createPost(title, text)
+      .then((result) => {
+        if (result) navigate('/')
+      })
+      .catch((err) => { console.log(err) })
   }
 
   return (
     <div className="NewPost">
-      <form onSubmit={createPost}>
+      <form onSubmit={handleSubmit}>
         <input
           ref={titleText}
           type="text"
