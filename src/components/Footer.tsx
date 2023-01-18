@@ -1,13 +1,12 @@
-import '../styles/Footer.css';
+import '../styles/Footer.css'
 
 /**
  * Footer component.
- * @return {JSX} JSX
  */
-export default function Footer() {
+export function Footer (): JSX.Element {
   return (
     <footer>
       <a href="https://github.com/nelfimov"><img src="/images/icons/github.svg" alt="Github" /></a>
     </footer>
-  );
+  )
 }

@@ -1,12 +1,14 @@
-import propTypes from 'prop-types';
-import '../styles/Comment.css';
+import '../styles/Comment.css'
+import { Comment as CommentInterface } from '../types'
+
+interface CommentProps {
+  comment: CommentInterface
+}
 
 /**
  * Comment component.
- * @param {shape} comment - Comment object from DB.
- * @return {JSX} JSX
  */
-export default function Comment({comment}) {
+export function Comment ({ comment }: CommentProps): JSX.Element {
   return (
     <div className="comment-container">
 
@@ -21,9 +23,5 @@ export default function Comment({comment}) {
 
       </div>
     </div>
-  );
+  )
 }
-
-Comment.propTypes = {
-  comment: propTypes.object.isRequired,
-};
