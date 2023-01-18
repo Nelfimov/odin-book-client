@@ -23,11 +23,7 @@ export function Login ({ login }: LoginProps): JSX.Element {
       )
       if (checkResult) {
         authorizeUser(
-          usernameValue,
-          emailValue,
-          passwordValue,
-          true,
-          login
+          usernameValue, emailValue, passwordValue, true, login
         )
       } else {
         console.log('error')

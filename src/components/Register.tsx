@@ -24,18 +24,11 @@ export function Register ({ login }: RegisterProps): JSX.Element {
       const passwordConfirmValue = passwordConfirm.current?.value
 
       const checkResult = checkInputs(
-        usernameValue,
-        emailValue,
-        passwordValue,
-        passwordConfirmValue
+        usernameValue, emailValue, passwordValue, passwordConfirmValue
       )
       if (checkResult) {
         authorizeUser(
-          usernameValue,
-          emailValue,
-          passwordValue,
-          false,
-          login
+          usernameValue, emailValue, passwordValue, false, login
         )
       } else {
         console.log('error')
