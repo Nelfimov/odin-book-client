@@ -1,39 +1,15 @@
 import { FormEvent, useRef } from 'react'
-import { Data } from '../types'
+import { authorizeUser, checkInputs } from '../api'
 
 interface RegisterProps {
   login: () => void
 }
 
-/**
- * Register component.
- */
 export function Register ({ login }: RegisterProps): JSX.Element {
   const username = useRef<HTMLInputElement>(null)
   const email = useRef<HTMLInputElement>(null)
   const password = useRef<HTMLInputElement>(null)
   const passwordConfirm = useRef<HTMLInputElement>(null)
-
-  /**
-   * Check if everything has been provided.
-   */
-  function checkInputs (username: string, email: string, password: string, passwordConfirm: string): boolean {
-    try {
-      if (username === '' && email === '') {
-        throw new Error('Username and email are required')
-      }
-      if (password === '' || passwordConfirm === '') {
-        throw new Error('Password and confirm password are required')
-      }
-      if (password !== passwordConfirm) {
-        throw new Error('Passwords do not match')
-      }
-      return true
-    } catch (err) {
-      console.log(err)
-      return false
-    }
-  }
 
   /**
    * Handle submit - sign up and receive token.
@@ -47,38 +23,23 @@ export function Register ({ login }: RegisterProps): JSX.Element {
       const passwordValue = password.current?.value
       const passwordConfirmValue = passwordConfirm.current?.value
 
-      if (!checkInputs(
-        usernameValue ?? '',
-        emailValue ?? '',
-        passwordValue ?? '',
-        passwordConfirmValue ?? ''
-      )) {
-        return
+      const checkResult = checkInputs(
+        usernameValue,
+        emailValue,
+        passwordValue,
+        passwordConfirmValue
+      )
+      if (checkResult) {
+        authorizeUser(
+          usernameValue,
+          emailValue,
+          passwordValue,
+          false,
+          login
+        )
+      } else {
+        console.log('error')
       }
-
-      fetch('http://localhost:3000/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: usernameValue,
-          email: emailValue,
-          password: passwordValue
-        })
-      })
-        .then(async (response) => await response.json())
-        .then((data: Data) => {
-          const { success, message, token, user } = data
-          if (success) {
-            localStorage.setItem('token', JSON.stringify(token))
-            localStorage.setItem('userID', JSON.stringify(user?._id))
-            localStorage.setItem('username', JSON.stringify(user?.username))
-            login(); return
-          }
-          console.log(message)
-        })
-        .catch((err) => { console.log(err) })
     } catch (err) {
       console.log(err)
     }

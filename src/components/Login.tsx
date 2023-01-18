@@ -1,41 +1,15 @@
 import { FormEvent, useRef } from 'react'
-import { Data } from '../types'
+import { authorizeUser, checkInputs } from '../api'
 
 interface LoginProps {
   login: () => void
 }
 
-/**
- * Login component.
- */
 export function Login ({ login }: LoginProps): JSX.Element {
   const username = useRef<HTMLInputElement>(null)
   const email = useRef<HTMLInputElement>(null)
   const password = useRef<HTMLInputElement>(null)
 
-  /**
-   * Check if password is provided, as well as either email or username.
-   */
-  function checkInputs (username: string, email: string, password: string): boolean {
-    try {
-      if (username === '') {
-        if (email === '') {
-          throw new Error('Username or email are required')
-        }
-      }
-      if (password === '') {
-        throw new Error('Password is required')
-      }
-      return true
-    } catch (err) {
-      console.log(err)
-      return false
-    }
-  }
-
-  /**
-   * Handle submit - log in and receive token.
-   */
   function handleSubmit (e: FormEvent<HTMLFormElement>): void {
     try {
       e.preventDefault()
@@ -44,37 +18,20 @@ export function Login ({ login }: LoginProps): JSX.Element {
       const emailValue = email.current?.value
       const passwordValue = password.current?.value
 
-      if (!checkInputs(
-        usernameValue ?? '',
-        emailValue ?? '',
-        passwordValue ?? ''
-      )) {
-        return
+      const checkResult = checkInputs(
+        usernameValue, emailValue, passwordValue
+      )
+      if (checkResult) {
+        authorizeUser(
+          usernameValue,
+          emailValue,
+          passwordValue,
+          true,
+          login
+        )
+      } else {
+        console.log('error')
       }
-
-      fetch('http://localhost:3000/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          username: usernameValue,
-          email: emailValue,
-          password: passwordValue
-        })
-      })
-        .then(async (response) => await response.json())
-        .then((data: Data) => {
-          const { success, message, token, user } = data
-          if (success) {
-            localStorage.setItem('token', JSON.stringify(token))
-            localStorage.setItem('userID', JSON.stringify(user?._id))
-            localStorage.setItem('username', JSON.stringify(user?.username))
-            login(); return
-          }
-          console.log(message)
-        })
-        .catch((err) => { console.log(err) })
     } catch (err) {
       console.log(err)
     }
