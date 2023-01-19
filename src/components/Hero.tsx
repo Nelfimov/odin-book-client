@@ -1,4 +1,5 @@
 import { MouseEvent, Dispatch, SetStateAction } from 'react'
+import { Link } from 'react-router-dom'
 import { Friend, User } from '../types'
 import { sendFriendRequest } from '../api'
 
@@ -63,7 +64,10 @@ export function Hero ({ user, status, setFriendStatus }: HeroProps): JSX.Element
           <ul>
             {
               user.friends.map((friend: Friend) => {
-                return <li key={friend._id}>{friend.user.username}: {friend.status}</li>
+                return <li key={friend._id}>
+                  <Link to={`/profile/${friend.user._id}`}>
+                    {friend.user.username}
+                  </Link>: {friend.status}</li>
               })
             }
           </ul>

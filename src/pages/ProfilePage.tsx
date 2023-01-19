@@ -1,13 +1,13 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { Post, Hero } from '../components'
-import { Friend, Post as PostInterface, User } from '../types'
-import { getUserPosts, getUser } from '../api'
+import { Post, Hero } from '../components/index'
+import { Post as PostInterface, User, Friend } from '../types/index'
+import { getUserPosts, getUser } from '../api/index'
 
 /**
  * Profile page.
  */
-export function Profile (): JSX.Element {
+export function ProfilePage (): JSX.Element {
   const [posts, setPosts] = useState<PostInterface[]>()
   const [loadingPosts, setLoadingPosts] = useState<boolean>(true)
   const [user, setUser] = useState<User>()

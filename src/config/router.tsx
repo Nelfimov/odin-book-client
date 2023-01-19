@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom'
 import {
-  Home, PostPage, NewPost, Discover, Profile
+  Home, PostPage, NewPost, Discover, ProfilePage
 } from '../pages'
 import App from '../App'
 
@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'profile/:userID',
-        element: <Profile />
+        element: <ProfilePage />
       }
     ]
   }

@@ -31,7 +31,6 @@ export async function sendFriendRequest (id: string | undefined): Promise<boolea
     const data: Data = await response.json()
     if (!data.success) {
       console.log(data.message)
-      return data.success
     }
     return data.success
   } catch (err) {
