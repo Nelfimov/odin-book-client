@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { Post, Hero } from '../components'
-import { Data, Friend, Post as PostInterface, User } from '../types'
+import { Friend, Post as PostInterface, User } from '../types'
+import { getUserPosts, getUser } from '../api'
 
 /**
  * Profile page.
@@ -15,7 +16,7 @@ export function Profile (): JSX.Element {
   const { userID } = useParams()
 
   useEffect(() => {
-    getPosts(userID)
+    getUserPosts(userID)
       .then((posts) => {
         setPosts(posts)
         setLoadingPosts(false)
@@ -29,35 +30,6 @@ export function Profile (): JSX.Element {
       })
       .catch((err) => { console.log(err) })
   }, [])
-
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-    Authorization: JSON.parse(localStorage.getItem('token') ?? '')
-  })
-
-  /**
-   * Get posts.
-   */
-  async function getPosts (id: string | undefined): Promise<PostInterface[] | undefined> {
-    const response = await fetch(`http://localhost:3000/profile/${userID ?? ''}/posts`, {
-      headers
-    })
-    const data: Data = await response.json()
-    if (data.success) return data.posts
-    return []
-  }
-
-  /**
-   * Get user info.
-   */
-  async function getUser (id: string | undefined): Promise<User | undefined> {
-    const response = await fetch(`http://localhost:3000/profile/${userID ?? ''}`, {
-      headers
-    })
-    const data: Data = await response.json()
-    if (data.success) return data.user
-    console.log(data.message)
-  }
 
   /**
    * Check friend status of user.
@@ -76,20 +48,6 @@ export function Profile (): JSX.Element {
     return 'available'
   }
 
-  /**
-   * Send friend request.
-   */
-  function sendFriendRequest (): void {
-    fetch(`http://localhost:3000/profile/${userID ?? ''}/request`, {
-      headers
-    })
-      .then(async (response) => await response.json())
-      .then((data: Data) => {
-        data.success && setFriendStatus('pending')
-      })
-      .catch((err) => { console.log(err) })
-  }
-
   return (
     <div className="Profile">
       <div className="user-info">
@@ -98,7 +56,7 @@ export function Profile (): JSX.Element {
             <Hero
               user={user}
               status={friendStatus}
-              sendFriendRequest={sendFriendRequest}
+              setFriendStatus={setFriendStatus}
             />
         }
       </div>

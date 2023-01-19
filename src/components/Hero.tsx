@@ -1,15 +1,28 @@
+import { MouseEvent, Dispatch, SetStateAction } from 'react'
 import { Friend, User } from '../types'
+import { sendFriendRequest } from '../api'
 
 interface HeroProps {
   user: User | undefined
   status: string
-  sendFriendRequest: () => void
+  setFriendStatus: Dispatch<SetStateAction<string>>
 }
 
 /**
  * Hero component.
  */
-export function Hero ({ user, status, sendFriendRequest }: HeroProps): JSX.Element | null {
+export function Hero ({ user, status, setFriendStatus }: HeroProps): JSX.Element | null {
+  function handleClick (e: MouseEvent<HTMLButtonElement>): void {
+    if (user == null) return
+    sendFriendRequest(user._id)
+      .then((result) => {
+        if (result) {
+          setFriendStatus('pending')
+        }
+      })
+      .catch((err) => { console.log(err) })
+  }
+
   return (
       <div className="Hero">
         {
@@ -40,7 +53,7 @@ export function Hero ({ user, status, sendFriendRequest }: HeroProps): JSX.Eleme
           {
             user._id !== JSON.parse(localStorage.getItem('userID') ?? '') &&
             status !== null &&
-            <button type='button' onClick={sendFriendRequest}>
+            <button type='button' onClick={handleClick}>
               Send friend request
             </button>
           }

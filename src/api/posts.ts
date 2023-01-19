@@ -115,3 +115,24 @@ export async function getPost (
     console.log(err)
   }
 }
+
+/**
+ * Get posts of user.
+ */
+export async function getUserPosts (
+  id: string | undefined
+): Promise<Post[] | undefined> {
+  try {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      Authorization: JSON.parse(localStorage.getItem('token') ?? '""')
+    })
+    const response = await fetch(`http://localhost:3000/profile/${id ?? ''}/posts`, {
+      headers
+    })
+    const data: Data = await response.json()
+    return data.posts
+  } catch (err) {
+    console.log(err)
+  }
+}
