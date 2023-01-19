@@ -24,15 +24,11 @@ export function Navbar ({ isLogged, logout }: NavbarProps): JSX.Element {
   }
 
   function getUserName (): string {
-    const username = localStorage.getItem('username')
-    if (username !== null) return JSON.parse(username)
-    return ''
+    return JSON.parse(localStorage.getItem('username') ?? '""')
   }
 
   function getUserID (): string {
-    const id = localStorage.getItem('userID')
-    if (id !== null) return JSON.parse(id)
-    return ''
+    return JSON.parse(localStorage.getItem('userID') ?? '""')
   }
 
   useEffect(() => {
