@@ -42,7 +42,7 @@ export function Hero ({ user, status, setFriendStatus }: HeroProps): JSX.Element
     if (friend == null) return <button onClick={handleClick}>Send request</button>
 
     let text = 'error'
-    switch (friend.status) {
+    switch (status) {
       case 'friends':
         text = 'Your friend'
         break
@@ -63,7 +63,7 @@ export function Hero ({ user, status, setFriendStatus }: HeroProps): JSX.Element
           <ul>
             {
               user.friends.map((friend: Friend) => {
-                return <li key={friend.user._id}>{friend.user.username}: {friend.status}</li>
+                return <li key={friend._id}>{friend.user.username}: {friend.status}</li>
               })
             }
           </ul>

@@ -24,12 +24,26 @@ export function Profile (): JSX.Element {
       .catch((err) => { console.log(err) })
     getUser(userID)
       .then((user) => {
-        setUser(user)
-        setLoadingUser(false);
-        (user != null) && setFriendStatus(checkUserFriendStatus(user))
+        if (user != null) {
+          setUser(user)
+          setLoadingUser(false)
+          setFriendStatus(checkUserFriendStatus(user))
+        }
       })
       .catch((err) => { console.log(err) })
-  }, [friendStatus, user])
+  }, [userID])
+
+  useEffect(() => {
+    getUser(userID)
+      .then((user) => {
+        if (user != null) {
+          setUser(user)
+          setLoadingUser(false)
+          setFriendStatus(checkUserFriendStatus(user))
+        }
+      })
+      .catch((err) => { console.log(err) })
+  }, [friendStatus])
 
   /**
    * Check friend status of user.
