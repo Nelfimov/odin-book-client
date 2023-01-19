@@ -5,10 +5,10 @@
         "jest": true
     },
     "extends": [
+        "standard-with-typescript",
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:react/recommended",
-        "standard-with-typescript"
+        "plugin:react/recommended"
     ],
     "overrides": [],
     "parser": "@typescript-eslint/parser",
