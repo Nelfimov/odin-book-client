@@ -14,6 +14,7 @@ export function Welcome ({ login }: WelcomeProps): JSX.Element {
 
   return (
     <div className="Welcome">
+      <div className="content">
       <button
         className={ toggle ? 'login' : 'register'}
         onClick={() => { setToggle(!toggle) }}
@@ -25,5 +26,6 @@ export function Welcome ({ login }: WelcomeProps): JSX.Element {
         : <Register login={login} />
       }
     </div>
+      </div>
   )
 }

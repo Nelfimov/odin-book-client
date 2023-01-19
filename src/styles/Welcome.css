@@ -1,10 +1,17 @@
 .Welcome {
+  background-image: url('/public/images/background/start.webp');
+  height: 100vh;
+  background-position: center;
+  color: white;
+}
+
+.Welcome .content {
   display: grid;
   grid-auto-flow: row;
   justify-items: center;
 }
 
-.Welcome > button {
+.Welcome .content > button {
   width: 70%;
 }
 
