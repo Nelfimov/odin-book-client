@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import { Post, Hero } from '../components/index'
-import { Post as PostInterface, User, Friend } from '../types/index'
-import { getUserPosts, getUser } from '../api/index'
+import { Link, useParams } from 'react-router-dom'
+import { Post, Hero, Comment } from '../components/index'
+import { Post as PostInterface, User, Friend, Comment as CommentInterface } from '../types/index'
+import { getUserPosts, getUser, getUserComments } from '../api/index'
+import '../styles/ProfilePage.css'
 
 /**
  * Profile page.
@@ -12,6 +13,9 @@ export function ProfilePage (): JSX.Element {
   const [loadingPosts, setLoadingPosts] = useState<boolean>(true)
   const [user, setUser] = useState<User>()
   const [loadingUser, setLoadingUser] = useState<boolean>(true)
+  const [comments, setComments] = useState<CommentInterface[]>()
+  const [loadingComments, setLoadingComments] = useState<boolean>(true)
+
   const [friendStatus, setFriendStatus] = useState<string>('')
   const { userID } = useParams()
 
@@ -28,6 +32,14 @@ export function ProfilePage (): JSX.Element {
           setUser(user)
           setLoadingUser(false)
           setFriendStatus(checkUserFriendStatus(user))
+        }
+      })
+      .catch((err) => { console.log(err) })
+    getUserComments(userID)
+      .then((comments) => {
+        if (comments != null) {
+          setComments(comments)
+          setLoadingComments(false)
         }
       })
       .catch((err) => { console.log(err) })
@@ -80,6 +92,24 @@ export function ProfilePage (): JSX.Element {
           (post: PostInterface) => <Post key={post._id} post={post} isLink={true}/>
         )
       }
+      <h2>Recent comments</h2>
+      <div className="comments-container">
+        <div className="comments">
+          {
+            !loadingComments && (comments != null) &&
+             comments.map(
+               (comment: CommentInterface) => {
+                 return (
+                  // eslint-disable-next-line @typescript-eslint/no-base-to-string, @typescript-eslint/restrict-template-expressions
+                  <Link key={comment._id} to={`/posts/${comment.post}`} >
+                    <Comment comment={comment}/>
+                  </Link>
+                 )
+               }
+             )
+          }
+        </div>
+      </div>
     </div>
   )
 }

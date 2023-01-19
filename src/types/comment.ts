@@ -1,8 +1,9 @@
+import { Post } from './post'
 import { User } from './user'
 
 export interface Comment {
   _id: string
-  post: string
+  post: Post
   text: string
   author: User
   createdAt: Date

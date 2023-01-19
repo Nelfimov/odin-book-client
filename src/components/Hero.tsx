@@ -2,6 +2,7 @@ import { MouseEvent, Dispatch, SetStateAction } from 'react'
 import { Link } from 'react-router-dom'
 import { Friend, User } from '../types'
 import { sendFriendRequest } from '../api'
+import '../styles/Hero.css'
 
 interface HeroProps {
   user: User | undefined
@@ -34,9 +35,7 @@ export function Hero ({ user, status, setFriendStatus }: HeroProps): JSX.Element
 
     const userID = JSON.parse(id)
     if (userID === user._id) {
-      return (
-      <div>Its you</div>
-      )
+      return <span className="you">It is you</span>
     }
 
     const friend = user.friends.find((el) => el.user._id === userID)
@@ -55,26 +54,38 @@ export function Hero ({ user, status, setFriendStatus }: HeroProps): JSX.Element
   }
 
   return (
-      <div className="Hero">
-        {
-          user != null
-            ? <>
-          <img src="/images/avatar/default.webp" alt="avatar" />
-          <span>{user.username}</span>
-          <ul>
-            {
-              user.friends.map((friend: Friend) => {
-                return <li key={friend._id}>
-                  <Link to={`/profile/${friend.user._id}`}>
-                    {friend.user.username}
-                  </Link>: {friend.status}</li>
-              })
-            }
-          </ul>
+  <div className="Hero">
+  {
+    user == null
+      ? <h1>User not found</h1>
+      : <div className="content">
+
+          <div className="left">
+            <img src="/images/avatar/default.webp" alt="avatar" />
             {renderButton(user)}
-            </>
-            : <div>User not found</div>
-        }
+          </div>
+
+          <div className="middle">
+            <span className='user'>{user.username}</span>
+          </div>
+
+          <div className="right">
+            <h3>Friends</h3>
+            <ul>
+              {
+                user.friends.map((friend: Friend) => {
+                  return friend.status === 'requested' &&
+                    <Link className='friend-link' to={`/profile/${friend.user._id}`}>
+                      <li key={friend._id}>
+                          {friend.user.username}
+                      </li>
+                    </Link>
+                })
+              }
+            </ul>
+          </div>
       </div>
+          }
+          </div>
   )
 }
