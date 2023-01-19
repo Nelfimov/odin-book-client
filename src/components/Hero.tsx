@@ -28,10 +28,12 @@ export function Hero ({ user, status, setFriendStatus }: HeroProps): JSX.Element
         {
           user !== undefined
             ? <>
+          <img src="/images/avatar/default.webp" alt="avatar" />
           <span>{user.username}</span>
           <ul>
             {
               user.friends.map((friend: Friend) => {
+                console.log(friend)
                 return <li key={friend.user._id}>{friend.user.username}: {friend.status}</li>
               })
             }
