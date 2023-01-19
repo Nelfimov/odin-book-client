@@ -29,7 +29,7 @@ export function Profile (): JSX.Element {
         (user != null) && setFriendStatus(checkUserFriendStatus(user))
       })
       .catch((err) => { console.log(err) })
-  }, [])
+  }, [friendStatus, user])
 
   /**
    * Check friend status of user.
