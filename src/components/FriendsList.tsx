@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 import { Friend } from '../types/common';
+import '../styles/FriendsList.css';
 
 interface IFriendsList {
   friendsList: Friend[];

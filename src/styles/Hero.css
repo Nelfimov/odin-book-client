@@ -32,21 +32,6 @@
   text-align: center;
 }
 
-.Hero .right ul {
-  list-style: none;
-  padding: 0;
-}
-
-.Hero .right li {
-  font-weight: 400;
-  padding: 5px;
-  border-radius: 5px;
-}
-
-.Hero li:hover {
-  background-color: var(--secondary-color);
-}
-
 @media only screen and (max-width: 650px) {
   .Hero > .content {
     grid-template-columns: 1fr;

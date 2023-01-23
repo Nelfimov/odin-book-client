@@ -1,0 +1,14 @@
+.FriendsList ul {
+  list-style: none;
+  padding: 0;
+}
+
+.FriendsList li {
+  font-weight: 400;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.FriendsList li:hover {
+  background-color: var(--secondary-color);
+}
