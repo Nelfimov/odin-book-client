@@ -1,27 +1,29 @@
-import { useNavigate } from 'react-router-dom'
-import { FormEvent, useRef } from 'react'
-import '../styles/NewPost.css'
-import { createPost } from '../api'
+import { useNavigate } from 'react-router-dom';
+import { FormEvent, useRef } from 'react';
+import '../styles/NewPost.css';
+import { createPost } from '../api';
 
 /**
  * Post page.
  */
-export function NewPost (): JSX.Element {
-  const titleText = useRef<HTMLInputElement>(null)
-  const postText = useRef<HTMLTextAreaElement>(null)
-  const navigate = useNavigate()
+export function NewPost(): JSX.Element {
+  const titleText = useRef<HTMLInputElement>(null);
+  const postText = useRef<HTMLTextAreaElement>(null);
+  const navigate = useNavigate();
 
-  function handleSubmit (e: FormEvent<HTMLFormElement>): void {
-    e.preventDefault()
+  function handleSubmit(e: FormEvent<HTMLFormElement>): void {
+    e.preventDefault();
 
-    const title = titleText.current?.value
-    const text = postText.current?.value
+    const title = titleText.current?.value;
+    const text = postText.current?.value;
 
     createPost(title, text)
       .then((result) => {
-        if (result) navigate('/')
+        if (result) navigate('/');
       })
-      .catch((err) => { console.log(err) })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   return (
@@ -32,17 +34,17 @@ export function NewPost (): JSX.Element {
           type="text"
           name="title"
           id="title"
-          placeholder='Title'
+          placeholder="Title"
         />
         <textarea
           ref={postText}
           name="column"
           id="column"
           rows={5}
-          placeholder='Post text'
+          placeholder="Post text"
         />
         <button>Create new post</button>
       </form>
     </div>
-  )
+  );
 }

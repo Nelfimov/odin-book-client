@@ -1,77 +1,87 @@
-import { useEffect, useState, useRef, FormEvent } from 'react'
-import { useParams } from 'react-router-dom'
-import { Post as PostComponent, Comment as CommentComponent } from '../components'
-import { Comment, Post } from '../types'
-import { createComment, getComments, getPost } from '../api'
-import '../styles/PostPage.css'
+import { useEffect, useState, useRef, FormEvent } from 'react';
+import { useParams } from 'react-router-dom';
+import {
+  Post as PostComponent,
+  Comment as CommentComponent,
+} from '../components';
+import { Comment, Post } from '../types/common';
+import { createComment, getComments, getPost } from '../api';
+import '../styles/PostPage.css';
 
 /**
  * Post page.
  */
-export function PostPage (): JSX.Element {
-  const { postID } = useParams()
-  const [post, setPost] = useState<Post>()
-  const [comments, setComments] = useState<Comment[] | undefined>([])
-  const [loadingPosts, setLoadingPosts] = useState(true)
-  const [loadingComments, setLoadingComments] = useState(true)
-  const commentText = useRef<HTMLTextAreaElement>(null)
+export function PostPage(): JSX.Element {
+  const { postID } = useParams();
+  const [post, setPost] = useState<Post>();
+  const [comments, setComments] = useState<Comment[] | undefined>([]);
+  const [loadingPosts, setLoadingPosts] = useState(true);
+  const [loadingComments, setLoadingComments] = useState(true);
+  const commentText = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
     getPost(postID)
       .then((post) => {
-        setPost(post)
-        setLoadingPosts(false)
+        setPost(post);
+        setLoadingPosts(false);
       })
-      .catch((err) => { console.log(err) })
+      .catch((err) => {
+        console.log(err);
+      });
     getComments(postID)
       .then((comments) => {
-        setComments(comments)
-        setLoadingComments(false)
+        setComments(comments);
+        setLoadingComments(false);
       })
-      .catch((err) => { console.log(err) })
-  }, [])
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
 
-  function handleSubmit (e: FormEvent<HTMLFormElement>): void {
-    e.preventDefault()
+  function handleSubmit(e: FormEvent<HTMLFormElement>): void {
+    e.preventDefault();
 
-    const element = commentText.current as HTMLTextAreaElement
+    const element = commentText.current as HTMLTextAreaElement;
 
     createComment(postID, element.value)
       .then(async (result: boolean) => {
         if (result) {
-          setComments(await getComments(postID))
-          element.value = ''
+          setComments(await getComments(postID));
+          element.value = '';
         }
       })
-      .catch((err: Error) => { console.log(err) })
+      .catch((err: Error) => {
+        console.log(err);
+      });
   }
 
   return (
     <div className="Post">
-      {
-        loadingPosts
-          ? <p>Loading</p>
-          : (post != null) && <PostComponent post={post} isLink={false} />
-      }
+      {loadingPosts ? (
+        <p>Loading</p>
+      ) : (
+        post != null && <PostComponent post={post} isLink={false} />
+      )}
       <div className="comments-container">
         <form onSubmit={handleSubmit}>
-          <textarea ref={commentText} name="column" id="column" rows={5}>
-
-          </textarea>
+          <textarea
+            ref={commentText}
+            name="column"
+            id="column"
+            rows={5}
+          ></textarea>
           <button>Submit comment</button>
         </form>
-        <div className="comments" id='comments'>
-          {
-            loadingComments
-              ? <p>Loading</p>
-              : comments !== undefined
-                ? comments.map((comment: Comment) => {
-                  return <CommentComponent key={comment._id} comment={comment} />
-                })
-                : null
-          }
+        <div className="comments" id="comments">
+          {loadingComments ? (
+            <p>Loading</p>
+          ) : comments !== undefined ? (
+            comments.map((comment: Comment) => {
+              return <CommentComponent key={comment._id} comment={comment} />;
+            })
+          ) : null}
         </div>
       </div>
     </div>
-  )
+  );
 }

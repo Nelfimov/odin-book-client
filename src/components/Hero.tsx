@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from 'react';
-import { User } from '../types';
+import { User } from '../types/common';
 import { FriendsList } from './FriendsList';
 import { sendFriendRequest } from '../api';
 import '../styles/Hero.css';

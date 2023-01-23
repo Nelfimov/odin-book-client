@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Friend } from '../types/friend';
+import { Friend } from '../types/common';
 
 interface IFriendsList {
   friendsList: Friend[];

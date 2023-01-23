@@ -1,40 +1,41 @@
-import { FormEvent, useRef } from 'react'
-import { authorizeUser, checkInputs } from '../api'
+import { FormEvent, useRef } from 'react';
+import { authorizeUser, checkInputs } from '../api';
 
 interface RegisterProps {
-  login: () => void
+  login: () => void;
 }
 
-export function Register ({ login }: RegisterProps): JSX.Element {
-  const username = useRef<HTMLInputElement>(null)
-  const email = useRef<HTMLInputElement>(null)
-  const password = useRef<HTMLInputElement>(null)
-  const passwordConfirm = useRef<HTMLInputElement>(null)
+export function Register({ login }: RegisterProps): JSX.Element {
+  const username = useRef<HTMLInputElement>(null);
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
+  const passwordConfirm = useRef<HTMLInputElement>(null);
 
   /**
    * Handle submit - sign up and receive token.
    */
-  function handleSubmit (e: FormEvent<HTMLFormElement>): void {
+  function handleSubmit(e: FormEvent<HTMLFormElement>): void {
     try {
-      e.preventDefault()
+      e.preventDefault();
 
-      const usernameValue = username.current?.value
-      const emailValue = email.current?.value
-      const passwordValue = password.current?.value
-      const passwordConfirmValue = passwordConfirm.current?.value
+      const usernameValue = username.current?.value;
+      const emailValue = email.current?.value;
+      const passwordValue = password.current?.value;
+      const passwordConfirmValue = passwordConfirm.current?.value;
 
       const checkResult = checkInputs(
-        usernameValue, emailValue, passwordValue, passwordConfirmValue
-      )
+        usernameValue,
+        emailValue,
+        passwordValue,
+        passwordConfirmValue
+      );
       if (checkResult) {
-        authorizeUser(
-          usernameValue, emailValue, passwordValue, false, login
-        )
+        authorizeUser(usernameValue, emailValue, passwordValue, false, login);
       } else {
-        console.log('error')
+        console.log('error');
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
@@ -82,5 +83,5 @@ export function Register ({ login }: RegisterProps): JSX.Element {
       </div>
       <button>Sign Up</button>
     </form>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import { Data } from '../types'
+import { Data } from '../types/common';
 
 /**
  * Handle submit to login.
  */
-export function authorizeUser (
+export function authorizeUser(
   username: string | undefined,
   email: string | undefined,
   password: string | undefined,
@@ -11,46 +11,48 @@ export function authorizeUser (
   callback: () => void
 ): void {
   try {
-    let url
+    let url;
 
     if (login) {
-      url = 'http://localhost:3000/auth/login'
+      url = 'http://localhost:3000/auth/login';
     } else {
-      url = 'http://localhost:3000/auth/register'
+      url = 'http://localhost:3000/auth/register';
     }
 
     fetch(url, {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         username,
         email,
-        password
-      })
+        password,
+      }),
     })
       .then(async (response) => await response.json())
       .then((data: Data) => {
-        const { success, message, token, user } = data
+        const { success, message, token, user } = data;
         if (success) {
-          localStorage.setItem('token', JSON.stringify(token))
-          localStorage.setItem('userID', JSON.stringify(user?._id))
-          localStorage.setItem('username', JSON.stringify(user?.username))
-          callback()
+          localStorage.setItem('token', JSON.stringify(token));
+          localStorage.setItem('userID', JSON.stringify(user?._id));
+          localStorage.setItem('username', JSON.stringify(user?.username));
+          callback();
         }
-        console.log(message)
+        console.log(message);
       })
-      .catch((err) => { console.log(err) })
+      .catch((err) => {
+        console.log(err);
+      });
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
 
 /**
  * Check inputs for errors.
  */
-export function checkInputs (
+export function checkInputs(
   username: string | undefined,
   email: string | undefined,
   password: string | undefined,
@@ -58,24 +60,24 @@ export function checkInputs (
 ): boolean {
   try {
     if (username == null || email == null || password == null) {
-      throw new Error('Username email or password not provided')
+      throw new Error('Username email or password not provided');
     }
 
     if (username === '') {
       if (email === '') {
-        throw new Error('Username or email are required')
+        throw new Error('Username or email are required');
       }
     }
     if (password === '') {
-      throw new Error('Password is required')
+      throw new Error('Password is required');
     }
 
     if (confirmPassword != null && password !== confirmPassword) {
-      throw new Error('Passwords do not match')
+      throw new Error('Passwords do not match');
     }
-    return true
+    return true;
   } catch (err) {
-    console.log(err)
-    return false
+    console.log(err);
+    return false;
   }
 }

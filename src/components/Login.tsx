@@ -1,35 +1,31 @@
-import { FormEvent, useRef } from 'react'
-import { authorizeUser, checkInputs } from '../api'
+import { FormEvent, useRef } from 'react';
+import { authorizeUser, checkInputs } from '../api';
 
 interface LoginProps {
-  login: () => void
+  login: () => void;
 }
 
-export function Login ({ login }: LoginProps): JSX.Element {
-  const username = useRef<HTMLInputElement>(null)
-  const email = useRef<HTMLInputElement>(null)
-  const password = useRef<HTMLInputElement>(null)
+export function Login({ login }: LoginProps): JSX.Element {
+  const username = useRef<HTMLInputElement>(null);
+  const email = useRef<HTMLInputElement>(null);
+  const password = useRef<HTMLInputElement>(null);
 
-  function handleSubmit (e: FormEvent<HTMLFormElement>): void {
+  function handleSubmit(e: FormEvent<HTMLFormElement>): void {
     try {
-      e.preventDefault()
+      e.preventDefault();
 
-      const usernameValue = username.current?.value
-      const emailValue = email.current?.value
-      const passwordValue = password.current?.value
+      const usernameValue = username.current?.value;
+      const emailValue = email.current?.value;
+      const passwordValue = password.current?.value;
 
-      const checkResult = checkInputs(
-        usernameValue, emailValue, passwordValue
-      )
+      const checkResult = checkInputs(usernameValue, emailValue, passwordValue);
       if (checkResult) {
-        authorizeUser(
-          usernameValue, emailValue, passwordValue, true, login
-        )
+        authorizeUser(usernameValue, emailValue, passwordValue, true, login);
       } else {
-        console.log('error')
+        console.log('error');
       }
     } catch (err) {
-      console.log(err)
+      console.log(err);
     }
   }
 
@@ -46,12 +42,7 @@ export function Login ({ login }: LoginProps): JSX.Element {
       </div>
       <div className="input">
         <label htmlFor="emailLogin">Email</label>
-        <input
-          ref={email}
-          type="email"
-          name="emailLogin"
-          id="emailLogin"
-        />
+        <input ref={email} type="email" name="emailLogin" id="emailLogin" />
       </div>
       <div className="input">
         <label htmlFor="passwordLogin">Password</label>
@@ -65,5 +56,5 @@ export function Login ({ login }: LoginProps): JSX.Element {
       </div>
       <button>Log In</button>
     </form>
-  )
+  );
 }

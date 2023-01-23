@@ -1,9 +1,9 @@
-import { Data, Post } from '../types'
+import { Data, Post } from '../types/common';
 
 /**
  * Like current post.
  */
-export function likePost (
+export function likePost(
   postID: string | undefined,
   liked: boolean,
   likedCallback: (arg: boolean) => void,
@@ -12,127 +12,131 @@ export function likePost (
 ): void {
   const headers = new Headers({
     'Content-Type': 'application/json',
-    Authorization: JSON.parse(localStorage.getItem('token') ?? '""')
+    Authorization: JSON.parse(localStorage.getItem('token') ?? '""'),
+  });
+  fetch(`http://localhost:3000/posts/${postID ?? ''}/like`, {
+    headers,
   })
-  fetch(
-        `http://localhost:3000/posts/${postID ?? ''}/like`, {
-          headers
-        }
-  )
     .then(async (response) => await response.json())
     .then((data: Data) => {
       if (!data.success) {
-        console.log(data.message)
+        console.log(data.message);
       }
     })
-    .catch((err) => { console.log(err) })
+    .catch((err) => {
+      console.log(err);
+    });
 
-  let newPost: Post
+  let newPost: Post;
   if (liked) {
     newPost = {
       ...post,
-      [post.likes.count]: --post.likes.count
-    }
+      [post.likes.count]: --post.likes.count,
+    };
   } else {
     newPost = {
       ...post,
-      [post.likes.count]: ++post.likes.count
-    }
+      [post.likes.count]: ++post.likes.count,
+    };
   }
-  likedCallback(!liked)
-  postCallback(newPost)
+  likedCallback(!liked);
+  postCallback(newPost);
 }
 
 /**
  * Get posts.
-  */
-export async function getPosts (isCurrentUser: boolean): Promise<Post[] | undefined> {
+ */
+export async function getPosts(
+  isCurrentUser: boolean
+): Promise<Post[] | undefined> {
   const headers = new Headers({
     'Content-Type': 'application/json',
-    Authorization: JSON.parse(localStorage.getItem('token') ?? '""')
-  })
-  let url = 'http://localhost:3000/posts'
-  if (isCurrentUser) url += '/friends'
-  const response = await fetch(
-    url, {
-      headers
-    })
-  const data: Data = await response.json()
-  return data.posts
+    Authorization: JSON.parse(localStorage.getItem('token') ?? '""'),
+  });
+  let url = 'http://localhost:3000/posts';
+  if (isCurrentUser) url += '/friends';
+  const response = await fetch(url, {
+    headers,
+  });
+  const data: Data = await response.json();
+  return data.posts;
 }
 
 /**
  * Create new post.
  */
-export async function createPost (
-  title: string | undefined, text: string | undefined
+export async function createPost(
+  title: string | undefined,
+  text: string | undefined
 ): Promise<boolean> {
   try {
     const headers = new Headers({
       'Content-Type': 'application/json',
-      Authorization: JSON.parse(localStorage.getItem('token') ?? '""')
-    })
+      Authorization: JSON.parse(localStorage.getItem('token') ?? '""'),
+    });
 
-    if (title == null || text == null) return false
+    if (title == null || text == null) return false;
 
-    const response = await fetch(
-      'http://localhost:3000/posts', {
-        method: 'POST',
-        headers,
-        body: JSON.stringify({
-          title,
-          text
-        })
-      }
-    )
-    const data: Data = await response.json()
-    return data.success
+    const response = await fetch('http://localhost:3000/posts', {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        title,
+        text,
+      }),
+    });
+    const data: Data = await response.json();
+    return data.success;
   } catch (err) {
-    console.log(err)
-    return false
+    console.log(err);
+    return false;
   }
 }
 
 /**
-   * Get single post.
-   */
-export async function getPost (
+ * Get single post.
+ */
+export async function getPost(
   postID: string | undefined
 ): Promise<Post | undefined> {
   try {
     const headers = new Headers({
       'Content-Type': 'application/json',
-      Authorization: JSON.parse(localStorage.getItem('token') ?? '""')
-    })
+      Authorization: JSON.parse(localStorage.getItem('token') ?? '""'),
+    });
     const response = await fetch(
-          `http://localhost:3000/posts/${postID ?? ''}`, {
-            headers
-          }
-    )
-    const data: Data = await response.json()
-    return data.post
+      `http://localhost:3000/posts/${postID ?? ''}`,
+      {
+        headers,
+      }
+    );
+    const data: Data = await response.json();
+    return data.post;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
 
 /**
  * Get posts of user.
  */
-export async function getUserPosts (
+export async function getUserPosts(
   id: string | undefined
 ): Promise<Post[] | undefined> {
   try {
     const headers = new Headers({
       'Content-Type': 'application/json',
-      Authorization: JSON.parse(localStorage.getItem('token') ?? '""')
-    })
-    const response = await fetch(`http://localhost:3000/profile/${id ?? ''}/posts`, {
-      headers
-    })
-    const data: Data = await response.json()
-    return data.posts
+      Authorization: JSON.parse(localStorage.getItem('token') ?? '""'),
+    });
+    const response = await fetch(
+      `http://localhost:3000/profile/${id ?? ''}/posts`,
+      {
+        headers,
+      }
+    );
+    const data: Data = await response.json();
+    return data.posts;
   } catch (err) {
-    console.log(err)
+    console.log(err);
   }
 }
