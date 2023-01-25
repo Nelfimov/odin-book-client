@@ -57,6 +57,7 @@ export function Navbar({ isLogged, logout }: NavbarProps): JSX.Element {
             <NavLink to="/posts/discover">Discover</NavLink>
             <NavLink to="/posts/new">New</NavLink>
             <NavLink to={`/profile/${getUserID()}`}>{getUserName()}</NavLink>
+            <NavLink to={`/profile/friends`}>Friends</NavLink>
             <button onClick={logout}>
               <img src="/images/icons/logout.svg" alt="Log out" />
               Log out

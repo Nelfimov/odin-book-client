@@ -1,0 +1,28 @@
+.FriendsPage {
+  background-color: white;
+  border-radius: 15px;
+  margin: 20px 0;
+  padding: 15px;
+}
+
+.FriendsPage .friend-container {
+  font-weight: 400;
+  min-height: 50px;
+  padding: 5px;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr min-content;
+  align-items: center;
+}
+
+.FriendsPage .friend-container:hover {
+  background-color: var(--secondary-color);
+}
+
+.FriendsPage button.accept {
+  background-color: rgb(96, 201, 96);
+}
+
+.FriendsPage button.accept:hover {
+  background-color: rgb(131, 236, 131);
+}
