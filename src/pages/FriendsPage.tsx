@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { getUser, acceptFriendRequest } from '../api';
+import { getUser, acceptFriendRequest, rejectFriendRequest } from '../api';
 import { Friend } from '../types/common/friend';
 import '../styles/FriendsPage.css';
 
@@ -16,18 +16,30 @@ export function FriendsPage(): JSX.Element {
     });
   }, []);
 
-  function handleClick(id: string): void {
+  function handleClickAccept(id: string): void {
     if (userID == null) return;
 
     acceptFriendRequest(id)
       .then((result) => {
-        console.log(result);
         if (result) {
           getUser(JSON.parse(userID))
             .then((user) => {
-              console.log(user);
               setFriendsList(user?.friends);
             })
+            .catch();
+        }
+      })
+      .catch();
+  }
+
+  function handleClickReject(id: string): void {
+    if (userID == null) return;
+
+    rejectFriendRequest(id)
+      .then((result) => {
+        if (result) {
+          getUser(JSON.parse(userID))
+            .then((user) => setFriendsList(user?.friends))
             .catch();
         }
       })
@@ -48,15 +60,26 @@ export function FriendsPage(): JSX.Element {
                 <Link to={`/profile/${friend.user._id}`}>
                   <div className="name">{friend.user.username}</div>
                 </Link>
-                <button
-                  className="accept"
-                  type="button"
-                  onClick={() => {
-                    handleClick(friend.user._id);
-                  }}
-                >
-                  Accept
-                </button>
+                <div className="buttons">
+                  <button
+                    className="accept"
+                    type="button"
+                    onClick={() => {
+                      handleClickAccept(friend.user._id);
+                    }}
+                  >
+                    Accept
+                  </button>
+                  <button
+                    className="reject"
+                    type="button"
+                    onClick={() => {
+                      handleClickReject(friend.user._id);
+                    }}
+                  >
+                    Reject
+                  </button>
+                </div>
               </div>
             )
           );

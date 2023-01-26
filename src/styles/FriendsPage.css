@@ -11,12 +11,17 @@
   padding: 5px;
   border-radius: 5px;
   display: grid;
-  grid-template-columns: 1fr min-content;
+  grid-template-columns: 1fr max-content;
   align-items: center;
 }
 
 .FriendsPage .friend-container:hover {
   background-color: var(--secondary-color);
+}
+
+.FriendsPage .buttons {
+  display: flex;
+  gap: 5px;
 }
 
 .FriendsPage button.accept {
@@ -25,4 +30,12 @@
 
 .FriendsPage button.accept:hover {
   background-color: rgb(131, 236, 131);
+}
+
+.FriendsPage button.reject {
+  background-color: rgb(255, 90, 90);
+}
+
+.FriendsPage button.reject:hover {
+  background-color: rgb(255, 141, 141);
 }

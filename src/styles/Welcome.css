@@ -1,14 +1,17 @@
 .Welcome {
-  background-image: url('/public/images/background/start.webp');
+  color: white;
   height: 100vh;
   background-position: center;
-  color: white;
+  background-image: linear-gradient(grey, grey), url('/public/images/background/start.webp');
+  width: 100%;
+  background-blend-mode: multiply;
 }
 
 .Welcome .content {
   display: grid;
   grid-auto-flow: row;
   justify-items: center;
+  position: relative;
 }
 
 .Welcome .content > button {
