@@ -48,3 +48,23 @@ export async function sendFriendRequest(
     return false;
   }
 }
+
+export async function acceptFriendRequest(id: string): Promise<boolean> {
+  try {
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      Authorization: JSON.parse(localStorage.getItem('token') ?? '""'),
+    });
+    const response = await fetch(`http://localhost:3000/profile/${id}/accept`, {
+      headers,
+    });
+    const data = await response.json();
+    if (!data.success) {
+      console.log(data.message);
+    }
+    return data.success;
+  } catch (err) {
+    console.log(err);
+    return false;
+  }
+}

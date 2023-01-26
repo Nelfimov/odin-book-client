@@ -13,9 +13,13 @@ export function FriendsList({ friendsList }: IFriendsList): JSX.Element {
       <ul>
         {friendsList.map((friend: Friend) => {
           return (
-            friend.status === 'requested' && (
-              <Link className="friend-link" to={`/profile/${friend.user._id}`}>
-                <li key={friend._id}>{friend.user.username}</li>
+            friend.status === 'friends' && (
+              <Link
+                className="friend-link"
+                key={friend._id}
+                to={`/profile/${friend.user._id}`}
+              >
+                <li>{friend.user.username}</li>
               </Link>
             )
           );
