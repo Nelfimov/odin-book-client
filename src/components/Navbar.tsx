@@ -14,35 +14,36 @@ export function Navbar({ isLogged, logout }: NavbarProps): JSX.Element {
   /**
    * Show menu on click.
    */
-  function showMenu(): string {
+  function showMenu(): void {
     const nav = document.querySelector('header nav');
-    if (nav !== null) {
-      nav.className = nav.className === 'hidden' ? 'active' : 'hidden';
-      return nav.className;
-    }
-    return '';
+    if (nav === null) return;
+
+    nav.className = nav.className === 'hidden' ? 'active' : 'hidden';
   }
 
   function getUserName(): string {
-    return JSON.parse(localStorage.getItem('username') ?? '""');
+    const username = localStorage.getItem('username');
+    if (username !== null) return JSON.parse(username);
+    return '';
   }
 
   function getUserID(): string {
-    return JSON.parse(localStorage.getItem('userID') ?? '""');
+    const userID = localStorage.getItem('userID');
+    if (userID !== null) return JSON.parse(userID);
+    return '';
   }
 
   useEffect(() => {
-    const a = document.querySelectorAll('nav a');
-    const nav = document.querySelectorAll('nav button');
+    const anchors = document.querySelectorAll('nav a');
+    const buttons = document.querySelectorAll('nav button');
 
-    if (a !== null && nav !== null) {
-      a.forEach((element) => {
-        element.addEventListener('click', showMenu);
-      });
-      nav.forEach((element) => {
-        element.addEventListener('click', showMenu);
-      });
-    }
+    anchors.forEach((element) => {
+      element.addEventListener('click', showMenu);
+    });
+    buttons.forEach((element) => {
+      element.addEventListener('click', showMenu);
+      element.addEventListener('touchend', showMenu);
+    });
   }, []);
 
   return (
