@@ -16,6 +16,7 @@ export function Post({ post: postProp, isLink }: PostProps): JSX.Element {
   function handleButton(e: MouseEvent<HTMLButtonElement>): void {
     e.stopPropagation();
     const element = e.currentTarget as HTMLButtonElement;
+    if (!element.dataset.post) return;
     likePost(element.dataset.post, liked, setLiked, post, setPost);
     element.classList.toggle('liked');
   }

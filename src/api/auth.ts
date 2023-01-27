@@ -4,9 +4,9 @@ import { Data } from '../types/common';
  * Handle submit to login.
  */
 export function authorizeUser(
-  username: string | undefined,
-  email: string | undefined,
-  password: string | undefined,
+  username: string,
+  email: string,
+  password: string,
   login: boolean,
   callback: () => void
 ): void {
@@ -38,6 +38,7 @@ export function authorizeUser(
           localStorage.setItem('userID', JSON.stringify(user?._id));
           localStorage.setItem('username', JSON.stringify(user?.username));
           callback();
+          return;
         }
         console.log(message);
       })
@@ -53,27 +54,23 @@ export function authorizeUser(
  * Check inputs for errors.
  */
 export function checkInputs(
-  username: string | undefined,
-  email: string | undefined,
-  password: string | undefined,
+  username: string,
+  email: string,
+  password: string,
   confirmPassword?: string
 ): boolean {
   try {
-    if (username == null || email == null || password == null) {
-      throw new Error('Username email or password not provided');
-    }
-
     if (username === '') {
       if (email === '') {
-        throw new Error('Username or email are required');
+        return false;
       }
     }
     if (password === '') {
-      throw new Error('Password is required');
+      return false;
     }
 
     if (confirmPassword != null && password !== confirmPassword) {
-      throw new Error('Passwords do not match');
+      return false;
     }
     return true;
   } catch (err) {

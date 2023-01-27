@@ -13,13 +13,15 @@ import '../styles/PostPage.css';
  */
 export function PostPage(): JSX.Element {
   const { postID } = useParams();
-  const [post, setPost] = useState<Post>();
-  const [comments, setComments] = useState<Comment[] | undefined>([]);
+  const [post, setPost] = useState<Post | null>();
+  const [comments, setComments] = useState<Comment[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
   const commentText = useRef<HTMLTextAreaElement>(null);
 
   useEffect(() => {
+    if (!postID) return;
+
     getPost(postID)
       .then((post) => {
         setPost(post);

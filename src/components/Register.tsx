@@ -23,6 +23,14 @@ export function Register({ login }: RegisterProps): JSX.Element {
       const passwordValue = password.current?.value;
       const passwordConfirmValue = passwordConfirm.current?.value;
 
+      if (
+        !usernameValue ||
+        !emailValue ||
+        !passwordValue ||
+        !passwordConfirmValue
+      )
+        return;
+
       const checkResult = checkInputs(
         usernameValue,
         emailValue,
@@ -31,8 +39,6 @@ export function Register({ login }: RegisterProps): JSX.Element {
       );
       if (checkResult) {
         authorizeUser(usernameValue, emailValue, passwordValue, false, login);
-      } else {
-        console.log('error');
       }
     } catch (err) {
       console.log(err);

@@ -17,6 +17,8 @@ export function NewPost(): JSX.Element {
     const title = titleText.current?.value;
     const text = postText.current?.value;
 
+    if (!title || !text) return;
+
     createPost(title, text)
       .then((result) => {
         if (result) navigate('/');

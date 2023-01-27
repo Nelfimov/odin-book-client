@@ -13,11 +13,7 @@ export default function App(): JSX.Element {
 
   useEffect(() => {
     const user = localStorage.getItem('token');
-    if (user == null) {
-      setIsLogged(false);
-    } else {
-      setIsLogged(true);
-    }
+    user ? setIsLogged(true) : setIsLogged(false);
   }, []);
 
   useEffect(() => {

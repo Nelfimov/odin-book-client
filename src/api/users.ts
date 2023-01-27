@@ -1,39 +1,39 @@
 import { User, Data } from '../types/common';
 
-export async function getUser(
-  id: string | undefined
-): Promise<User | undefined> {
+export async function getUser(id: string): Promise<User | null> {
   try {
+    const token = localStorage.getItem('token');
+    if (token == null) return null;
+
     const headers = new Headers({
       'Content-Type': 'application/json',
-      Authorization: JSON.parse(localStorage.getItem('token') ?? ''),
+      Authorization: JSON.parse(token),
     });
-    const response = await fetch(
-      `http://localhost:3000/profile/${id ?? '""'}`,
-      {
-        headers,
-      }
-    );
+    const response = await fetch(`http://localhost:3000/profile/${id}`, {
+      headers,
+    });
     const data: Data = await response.json();
-    return data.user;
+    return data.user ?? null;
   } catch (err) {
     console.log(err);
+    return null;
   }
 }
 
 /**
  * Send friend request.
  */
-export async function sendFriendRequest(
-  id: string | undefined
-): Promise<boolean> {
+export async function sendFriendRequest(id: string): Promise<boolean> {
   try {
+    const token = localStorage.getItem('token');
+    if (token == null) return false;
+
     const headers = new Headers({
       'Content-Type': 'application/json',
-      Authorization: JSON.parse(localStorage.getItem('token') ?? '""'),
+      Authorization: JSON.parse(token),
     });
     const response = await fetch(
-      `http://localhost:3000/profile/${id ?? ''}/request`,
+      `http://localhost:3000/profile/${id}/request`,
       {
         headers,
       }
@@ -51,9 +51,12 @@ export async function sendFriendRequest(
 
 export async function acceptFriendRequest(id: string): Promise<boolean> {
   try {
+    const token = localStorage.getItem('token');
+    if (token == null) return false;
+
     const headers = new Headers({
       'Content-Type': 'application/json',
-      Authorization: JSON.parse(localStorage.getItem('token') ?? '""'),
+      Authorization: JSON.parse(token),
     });
     const response = await fetch(`http://localhost:3000/profile/${id}/accept`, {
       headers,
@@ -71,9 +74,12 @@ export async function acceptFriendRequest(id: string): Promise<boolean> {
 
 export async function rejectFriendRequest(id: string): Promise<boolean> {
   try {
+    const token = localStorage.getItem('token');
+    if (token == null) return false;
+
     const headers = new Headers({
       'Content-Type': 'application/json',
-      Authorization: JSON.parse(localStorage.getItem('token') ?? '""'),
+      Authorization: JSON.parse(token),
     });
     const response = await fetch(`http://localhost:3000/profile/${id}/reject`, {
       headers,
