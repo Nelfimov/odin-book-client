@@ -45,6 +45,10 @@ export function PostPage(): JSX.Element {
 
     const element = commentText.current as HTMLTextAreaElement;
 
+    if (!postID) {
+      throw new TypeError('postID is not defined');
+    }
+
     createComment(postID, element.value)
       .then(async (result: boolean) => {
         if (result) {

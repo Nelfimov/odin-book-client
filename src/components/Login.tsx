@@ -17,7 +17,13 @@ export function Login({ login }: LoginProps): JSX.Element {
       const usernameValue = username.current?.value;
       const emailValue = email.current?.value;
       const passwordValue = password.current?.value;
-      if (!usernameValue || !emailValue || !passwordValue) return;
+
+      if (
+        usernameValue === undefined ||
+        emailValue === undefined ||
+        passwordValue === undefined
+      )
+        return;
 
       const checkResult = checkInputs(usernameValue, emailValue, passwordValue);
       if (checkResult) {

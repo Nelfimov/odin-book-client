@@ -24,10 +24,10 @@ export function Register({ login }: RegisterProps): JSX.Element {
       const passwordConfirmValue = passwordConfirm.current?.value;
 
       if (
-        !usernameValue ||
-        !emailValue ||
-        !passwordValue ||
-        !passwordConfirmValue
+        usernameValue === undefined ||
+        emailValue === undefined ||
+        passwordValue === undefined ||
+        passwordConfirmValue === undefined
       )
         return;
 

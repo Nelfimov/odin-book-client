@@ -25,49 +25,53 @@ export function ProfilePage(): JSX.Element {
   const { userID } = useParams();
 
   useEffect(() => {
-    getUserPosts(userID)
-      .then((posts) => {
-        setPosts(posts);
-        setLoadingPosts(false);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    getUser(userID)
-      .then((user) => {
-        if (user != null) {
-          setUser(user);
-          setLoadingUser(false);
-          setFriendStatus(checkUserFriendStatus(user));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    getUserComments(userID)
-      .then((comments) => {
-        if (comments != null) {
-          setComments(comments);
-          setLoadingComments(false);
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (userID) {
+      getUserPosts(userID)
+        .then((posts) => {
+          setPosts(posts);
+          setLoadingPosts(false);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      getUser(userID)
+        .then((user) => {
+          if (user != null) {
+            setUser(user);
+            setLoadingUser(false);
+            setFriendStatus(checkUserFriendStatus(user));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+      getUserComments(userID)
+        .then((comments) => {
+          if (comments != null) {
+            setComments(comments);
+            setLoadingComments(false);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [userID]);
 
   useEffect(() => {
-    getUser(userID)
-      .then((user) => {
-        if (user != null) {
-          setUser(user);
-          setLoadingUser(false);
-          setFriendStatus(checkUserFriendStatus(user));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    if (userID) {
+      getUser(userID)
+        .then((user) => {
+          if (user != null) {
+            setUser(user);
+            setLoadingUser(false);
+            setFriendStatus(checkUserFriendStatus(user));
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
   }, [friendStatus]);
 
   /**
