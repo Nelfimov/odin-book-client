@@ -9,22 +9,24 @@ interface IFriendsList {
 export function FriendsList({ friendsList }: IFriendsList): JSX.Element {
   return (
     <div className="FriendsList">
-      <h3>Friends</h3>
-      <ul>
-        {friendsList.map((friend: Friend) => {
-          return (
-            friend.status === 'friends' && (
-              <Link
-                className="friend-link"
-                key={friend._id}
-                to={`/profile/${friend.user._id}`}
-              >
-                <li>{friend.user.username}</li>
-              </Link>
-            )
-          );
-        })}
-      </ul>
+      {friendsList && friendsList.length > 0 && (
+        <>
+          <h3>Friends</h3>
+          <ul>
+            {friendsList.map((friend: Friend) => {
+              return (
+                <Link
+                  className="friend-link"
+                  key={friend._id}
+                  to={`/profile/${friend.user._id}`}
+                >
+                  <li>{friend.user.username}</li>
+                </Link>
+              );
+            })}
+          </ul>
+        </>
+      )}
     </div>
   );
 }

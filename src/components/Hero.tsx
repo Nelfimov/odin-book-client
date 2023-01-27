@@ -74,7 +74,11 @@ export function Hero({
           </div>
 
           <div className="right">
-            <FriendsList friendsList={user.friends} />
+            <FriendsList
+              friendsList={user.friends.filter(
+                (friend) => friend.status === 'friends'
+              )}
+            />
           </div>
         </div>
       )}
