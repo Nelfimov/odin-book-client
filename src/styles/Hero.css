@@ -18,6 +18,10 @@
   margin-right: 10px;
 }
 
+.Hero .left label:hover {
+  cursor: pointer;
+}
+
 .Hero .middle {
   display: flex;
   align-items: center;

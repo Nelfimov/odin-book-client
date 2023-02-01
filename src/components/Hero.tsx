@@ -1,7 +1,7 @@
-import { Dispatch, SetStateAction } from 'react';
+import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { User } from '../types/common';
 import { FriendsList } from './FriendsList';
-import { sendFriendRequest } from '../api';
+import { sendFriendRequest, uploadImage } from '../api';
 import '../styles/Hero.css';
 
 interface HeroProps {
@@ -29,6 +29,51 @@ export function Hero({
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  function handleUpload(e: ChangeEvent<HTMLInputElement>): void {
+    if (!user) return;
+    if (!e.target.files) return;
+    const file = e.target.files[0];
+    uploadImage(user._id, file)
+      .then((result) => {
+        if (result) return;
+        user.image = file.name;
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function renderProfileImage(user: User): JSX.Element | undefined {
+    if (user == null) return;
+
+    const userID = localStorage.getItem('userID');
+    if (!userID) return;
+
+    if (user._id !== JSON.parse(userID))
+      return (
+        <img
+          src={user.image ?? '/images/avatar/default.webp'}
+          alt="profile-image"
+        />
+      );
+
+    return (
+      <>
+        <label htmlFor="image">
+          <img
+            src={user.image ?? '/images/avatar/default.webp'}
+            alt="profile-image"
+          />
+        </label>
+        <input
+          type="file"
+          name="image"
+          id="image"
+          onChange={handleUpload}
+          hidden
+        />
+      </>
+    );
   }
 
   function renderButton(user: User): JSX.Element {
@@ -65,7 +110,7 @@ export function Hero({
       ) : (
         <div className="content">
           <div className="left">
-            <img src="/images/avatar/default.webp" alt="avatar" />
+            {renderProfileImage(user)}
             {renderButton(user)}
           </div>
 

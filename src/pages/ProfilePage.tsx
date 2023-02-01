@@ -29,6 +29,7 @@ export function ProfilePage(): JSX.Element {
       getUser(userID)
         .then((user) => {
           if (user != null) {
+            console.log(user);
             setUser(user);
             setLoadingUser(false);
             setFriendStatus(checkUserFriendStatus(user));
