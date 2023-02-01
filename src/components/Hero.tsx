@@ -1,11 +1,12 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { User } from '../types/common';
 import { FriendsList } from './FriendsList';
-import { sendFriendRequest, uploadImage } from '../api';
+import { sendFriendRequest, uploadImage, getUser } from '../api';
 import '../styles/Hero.css';
 
 interface HeroProps {
   user: User | undefined;
+  setUser: Dispatch<SetStateAction<User | undefined>>;
   status: string;
   setFriendStatus: Dispatch<SetStateAction<string>>;
 }
@@ -15,6 +16,7 @@ interface HeroProps {
  */
 export function Hero({
   user,
+  setUser,
   status,
   setFriendStatus,
 }: HeroProps): JSX.Element {
@@ -37,8 +39,8 @@ export function Hero({
     const file = e.target.files[0];
     uploadImage(user._id, file)
       .then((result) => {
-        if (result) return;
-        user.image = file.name;
+        if (!result) return;
+        getUser(user._id).then((user) => setUser(user));
       })
       .catch((err) => console.log(err));
   }

@@ -27,6 +27,36 @@
   padding: 15px;
 }
 
+.post-container p {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.post-container input.expand {
+  appearance: none;
+  padding: .5em;
+  border-radius: .25em;
+  cursor: pointer;
+  margin-top: 1rem;
+}
+
+.post-container input.expand::before {
+  content: "Expand";
+}
+
+.post-container input.expand:checked:before {
+  content: "Collapse";
+}
+
+.post-container p:has(+ input.expand:checked) {
+  display: block;
+  overflow: auto;
+  -webkit-box-orient: none;
+  -webkit-line-clamp: none;
+}
+
 .post-container .bottom {
   display: flex;
   align-items: center;

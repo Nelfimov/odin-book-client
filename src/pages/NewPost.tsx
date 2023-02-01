@@ -37,6 +37,7 @@ export function NewPost(): JSX.Element {
           name="title"
           id="title"
           placeholder="Title"
+          required
         />
         <textarea
           ref={postText}
@@ -44,6 +45,7 @@ export function NewPost(): JSX.Element {
           id="column"
           rows={5}
           placeholder="Post text"
+          required
         />
         <button>Create new post</button>
       </form>

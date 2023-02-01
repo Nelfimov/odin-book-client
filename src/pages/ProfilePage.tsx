@@ -93,6 +93,7 @@ export function ProfilePage(): JSX.Element {
         {!loadingUser && (
           <Hero
             user={user}
+            setUser={setUser}
             status={friendStatus}
             setFriendStatus={setFriendStatus}
           />
