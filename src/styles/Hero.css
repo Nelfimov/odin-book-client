@@ -5,6 +5,10 @@
   margin: 15px 0;
 }
 
+.Hero span {
+  overflow-wrap: break-word;
+}
+
 .Hero > .content {
   display: grid;
   grid-template-columns: 1fr 3fr 1fr;
@@ -14,12 +18,23 @@
 .Hero .left {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 10px;
   margin-right: 10px;
 }
 
+.Hero .left label {
+  display: flex;
+  justify-content: center;
+}
+
 .Hero .left label:hover {
   cursor: pointer;
+}
+
+.Hero .left img {
+  max-width: 260px;
+  max-height: 280px;
 }
 
 .Hero .middle {

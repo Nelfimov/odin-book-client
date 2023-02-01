@@ -19,7 +19,7 @@ export function Hero({
   setFriendStatus,
 }: HeroProps): JSX.Element {
   function handleClick(): void {
-    if (user == null) return;
+    if (!user) return;
     sendFriendRequest(user._id)
       .then((result) => {
         if (result) {
@@ -44,8 +44,6 @@ export function Hero({
   }
 
   function renderProfileImage(user: User): JSX.Element | undefined {
-    if (user == null) return;
-
     const userID = localStorage.getItem('userID');
     if (!userID) return;
 
@@ -78,7 +76,7 @@ export function Hero({
 
   function renderButton(user: User): JSX.Element {
     const id = localStorage.getItem('userID');
-    if (id == null) {
+    if (!id) {
       return <div>User not found</div>;
     }
 

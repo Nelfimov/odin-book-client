@@ -1,10 +1,10 @@
 import { User, Data } from '../types/common';
 import imageCompression from 'browser-image-compression';
 
-export async function getUser(id: string): Promise<User | null> {
+export async function getUser(id: string): Promise<User | undefined> {
   try {
     const token = localStorage.getItem('token');
-    if (token == null) return null;
+    if (!token) return;
 
     const headers = new Headers({
       'Content-Type': 'application/json',
@@ -14,10 +14,10 @@ export async function getUser(id: string): Promise<User | null> {
       headers,
     });
     const data: Data = await response.json();
-    return data.user ?? null;
+    return data.user;
   } catch (err) {
     console.log(err);
-    return null;
+    return;
   }
 }
 
