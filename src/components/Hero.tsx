@@ -1,31 +1,41 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
-import { User } from '../types/common';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { User as IUser } from '../types/common';
 import { FriendsList } from './FriendsList';
 import { sendFriendRequest, uploadImage, getUser } from '../api';
 import '../styles/Hero.css';
 
-interface HeroProps {
-  user: User | undefined;
-  setUser: Dispatch<SetStateAction<User | undefined>>;
-  status: string;
-  setFriendStatus: Dispatch<SetStateAction<string>>;
+interface Props {
+  id: string;
 }
 
 /**
  * Hero component.
  */
-export function Hero({
-  user,
-  setUser,
-  status,
-  setFriendStatus,
-}: HeroProps): JSX.Element {
+export function Hero({ id }: Props): JSX.Element {
+  const [user, setUser] = useState<IUser>();
+  const [loading, setLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    getUser(id)
+      .then((user) => {
+        setUser(user);
+        setLoading(false);
+      })
+      .catch((err) => console.log(err));
+  }, [id]);
+
   function handleClick(): void {
     if (!user) return;
-    sendFriendRequest(user._id)
+    sendFriendRequest(id)
       .then((result) => {
         if (result) {
-          setFriendStatus('pending');
+          setLoading(true);
+          getUser(id)
+            .then((user) => {
+              setUser(user);
+              setLoading(false);
+            })
+            .catch((err) => console.log(err));
         }
       })
       .catch((err) => {
@@ -37,19 +47,21 @@ export function Hero({
     if (!user) return;
     if (!e.target.files) return;
     const file = e.target.files[0];
-    uploadImage(user._id, file)
+    uploadImage(id, file)
       .then((result) => {
         if (!result) return;
-        getUser(user._id).then((user) => setUser(user));
+        getUser(id).then((user) => setUser(user));
+        const input = document.getElementById('image') as HTMLInputElement;
+        if (input) input.value = '';
       })
       .catch((err) => console.log(err));
   }
 
-  function renderProfileImage(user: User): JSX.Element | undefined {
+  function renderProfileImage(user: IUser): JSX.Element | undefined {
     const userID = localStorage.getItem('userID');
     if (!userID) return;
 
-    if (user._id !== JSON.parse(userID))
+    if (id !== JSON.parse(userID))
       return (
         <img
           src={user.image ?? '/images/avatar/default.webp'}
@@ -70,13 +82,16 @@ export function Hero({
           name="image"
           id="image"
           onChange={handleUpload}
+          onClick={function (this: HTMLInputElement) {
+            this.value = '';
+          }}
           hidden
         />
       </>
     );
   }
 
-  function renderButton(user: User): JSX.Element {
+  function renderButton(user: IUser): JSX.Element {
     const id = localStorage.getItem('userID');
     if (!id) {
       return <div>User not found</div>;
@@ -92,7 +107,7 @@ export function Hero({
       return <button onClick={handleClick}>Send request</button>;
 
     let text = 'error';
-    switch (status) {
+    switch (friend.status) {
       case 'friends':
         text = 'Your friend';
         break;
@@ -105,9 +120,9 @@ export function Hero({
 
   return (
     <div className="Hero">
-      {user == null ? (
-        <h1>User not found</h1>
-      ) : (
+      {loading && <h1>Loading</h1>}
+      {!loading && !user && <h1>User not found</h1>}
+      {!loading && user && (
         <div className="content">
           <div className="left">
             {renderProfileImage(user)}
