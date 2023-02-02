@@ -4,9 +4,11 @@ import { Link } from 'react-router-dom';
 import '../styles/Post.css';
 import { likePost } from '../api';
 
-interface PostProps {
+export interface PostProps {
   post: PostInterface;
   isLink: boolean;
+  key?: string;
+  ref?: any;
 }
 
 export function Post({ post: postProp, isLink }: PostProps): JSX.Element {
