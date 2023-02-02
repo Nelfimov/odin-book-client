@@ -59,8 +59,7 @@ export async function getPosts(isCurrentUser: boolean): Promise<Post[]> {
     Authorization: JSON.parse(token),
   });
 
-  let url = 'http://localhost:3000/posts';
-  if (isCurrentUser) url += '/friends';
+  const url = `http://localhost:3000/posts/${isCurrentUser ? 'friends' : ''}`;
   const response = await fetch(url, {
     headers,
   });

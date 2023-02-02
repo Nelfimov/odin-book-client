@@ -36,7 +36,7 @@ export function Post({ post: postProp, isLink }: PostProps): JSX.Element {
       {isLink ? (
         <Link to={`/posts/${post._id}`}>
           <h2>{post.title}</h2>
-          <p>{post.text}</p>
+          <p>{post.textPreview}</p>
         </Link>
       ) : (
         <>

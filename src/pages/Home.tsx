@@ -28,7 +28,7 @@ export function Home({ friends }: HomeInterface): JSX.Element {
   return (
     <div className="Home">
       {!loading &&
-        posts != null &&
+        posts &&
         posts.map((post) => <Post key={post._id} post={post} isLink={true} />)}
     </div>
   );
