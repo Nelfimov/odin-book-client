@@ -44,7 +44,6 @@ export function Post({ post: postProp, isLink }: PostProps): JSX.Element {
           <p>{post.text}</p>
         </>
       )}
-      <input className="expand" type="checkbox" name="expand" id="expand" />
       <div className="bottom">
         <button data-post={post._id} type="button" onClick={handleButton}>
           <img src="/images/icons/like.svg" alt="like" />
