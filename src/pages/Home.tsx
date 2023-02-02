@@ -11,11 +11,12 @@ interface HomeInterface {
  * Home page.
  */
 export function Home({ friends }: HomeInterface): JSX.Element {
-  const [posts, setPosts] = useState<IPost[] | undefined>([]);
+  const [posts, setPosts] = useState<IPost[]>([]);
+  const [skip, setSkip] = useState<number>(0);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getPosts(friends)
+    getPosts(friends, 0)
       .then((posts) => {
         setPosts(posts);
         setLoading(false);
@@ -24,6 +25,12 @@ export function Home({ friends }: HomeInterface): JSX.Element {
         console.log(err);
       });
   }, []);
+
+  useEffect(() => {
+    getPosts(friends, skip).then((posts) => {
+      setPosts((prev) => [...prev, ...posts]);
+    });
+  }, [skip]);
 
   return (
     <div className="Home">

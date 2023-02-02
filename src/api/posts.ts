@@ -50,7 +50,10 @@ export function likePost(
 /**
  * Get posts.
  */
-export async function getPosts(isCurrentUser: boolean): Promise<Post[]> {
+export async function getPosts(
+  isCurrentUser: boolean,
+  skip: number
+): Promise<Post[]> {
   const token = localStorage.getItem('token');
   if (token == null) return [];
 
@@ -59,7 +62,7 @@ export async function getPosts(isCurrentUser: boolean): Promise<Post[]> {
     Authorization: JSON.parse(token),
   });
 
-  const url = `http://localhost:3000/posts/${isCurrentUser ? 'friends' : ''}`;
+  const url = `/posts/${isCurrentUser ? 'friends' : ''}?skip=${skip}`;
   const response = await fetch(url, {
     headers,
   });

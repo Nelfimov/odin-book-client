@@ -1,12 +1,5 @@
 import { createBrowserRouter } from 'react-router-dom';
-import {
-  Home,
-  PostPage,
-  NewPost,
-  Discover,
-  ProfilePage,
-  FriendsPage,
-} from '../pages';
+import { Home, PostPage, NewPost, ProfilePage, FriendsPage } from '../pages';
 import App from '../App';
 
 export const router = createBrowserRouter([
@@ -31,7 +24,7 @@ export const router = createBrowserRouter([
           },
           {
             path: 'discover',
-            element: <Discover />,
+            element: <Home friends={false} />,
           },
         ],
       },
