@@ -82,12 +82,19 @@ export function Hero({ id }: Props): JSX.Element {
       );
 
     return (
-      <>
+      <div className="prompt-to-update">
         <label htmlFor="image">
-          <img
-            src={user.image ?? '/images/avatar/default.webp'}
-            alt="profile-image"
-          />
+          <picture>
+            <img
+              src={user.image ?? '/images/avatar/default.webp'}
+              alt="profile-image"
+              onError={function (this: HTMLImageElement) {
+                this.onerror = null;
+                this.src = '/images/avatar/default.webp';
+              }}
+            />
+          </picture>
+          <span className="prompt">Click to upload new image</span>
         </label>
         <input
           accept="image/*"
@@ -101,7 +108,7 @@ export function Hero({ id }: Props): JSX.Element {
           }}
           hidden
         />
-      </>
+      </div>
     );
   }
 
@@ -129,7 +136,11 @@ export function Hero({ id }: Props): JSX.Element {
         text = 'Awaiting response';
         break;
     }
-    return <button disabled>{text}</button>;
+    return (
+      <button className="disabled" disabled>
+        {text}
+      </button>
+    );
   }
 
   return (

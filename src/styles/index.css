@@ -17,6 +17,7 @@ main {
   max-width: 80rem;
   margin-inline: auto;
   min-height: 80vh;
+  margin-bottom: 29px;
 }
 
 main > div {
@@ -60,6 +61,11 @@ p {
 button:hover {
   cursor: pointer;
   background-color: rgb(214, 214, 255);
+}
+
+button.disabled {
+  background-color: transparent;
+  color: grey
 }
 
 @media only screen and (max-width: 760px) {
