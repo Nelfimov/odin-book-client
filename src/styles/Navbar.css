@@ -53,6 +53,7 @@ header a {
   text-decoration: none;
   padding: var(--link-padding);
   text-align: center;
+  transition: background-color .3s;
 }
 
 header a:visited {
