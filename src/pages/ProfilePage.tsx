@@ -10,9 +10,12 @@ export function ProfilePage(): JSX.Element {
   const [loadingPosts, setLoadingPosts] = useState<boolean>(true);
   const [comments, setComments] = useState<IComment[]>([]);
   const [loadingComments, setLoadingComments] = useState<boolean>(true);
-  const [showPosts, setShowPosts] = useState(true);
 
   const { userID } = useParams();
+
+  function handleToggle() {
+    document.getElementById('posts-container')?.classList.toggle('hide');
+  }
 
   useEffect(() => {
     if (userID) {
@@ -42,43 +45,35 @@ export function ProfilePage(): JSX.Element {
       <div className="user-info">{userID && <Hero id={userID} />}</div>
       <div className="controls">
         <label className="toggle">
-          <input
-            type="checkbox"
-            name="toggle"
-            id="toggle"
-            onChange={() => {
-              setShowPosts(!showPosts);
-              document
-                .getElementById('posts-container')
-                ?.classList.toggle('hide');
-            }}
-          />
+          <input type="checkbox" onChange={handleToggle} />
           <span className="labels" data-on="Comments" data-off="Posts"></span>
         </label>
       </div>
-      <div id="posts-container">
-        <h2>Recent posts</h2>
-        {!loadingPosts &&
-          posts.length > 0 &&
-          posts.map((post: IPost) => (
-            <Post key={post._id} post={post} isLink={true} />
-          ))}
-      </div>
-      <h2>Recent comments</h2>
-      {comments && comments.length > 0 && (
-        <div className="comments-container">
-          <div className="comments">
-            {!loadingComments &&
-              comments.map((comment: IComment) => {
-                return (
-                  <Link key={comment._id} to={`/posts/${comment.post}`}>
-                    <Comment comment={comment} />
-                  </Link>
-                );
-              })}
-          </div>
+      <div className="posts-and-comments">
+        <div id="posts-container">
+          <h2>Recent posts</h2>
+          {!loadingPosts &&
+            posts.length > 0 &&
+            posts.map((post: IPost) => (
+              <Post key={post._id} post={post} isLink={true} />
+            ))}
         </div>
-      )}
+        <div className="comments-container">
+          <h2>Recent comments</h2>
+          {comments && comments.length > 0 && (
+            <div className="comments">
+              {!loadingComments &&
+                comments.map((comment: IComment) => {
+                  return (
+                    <Link key={comment._id} to={`/posts/${comment.post}`}>
+                      <Comment comment={comment} />
+                    </Link>
+                  );
+                })}
+            </div>
+          )}
+        </div>
+      </div>
     </div>
   );
 }

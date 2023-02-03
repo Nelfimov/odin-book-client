@@ -1,14 +1,13 @@
-.Profile .comments-container {
-  display: flex;
-  flex-direction: column;
-  background-color: white;
-  border-radius: 15px;
-  padding: 15px;
-  margin: 15px 0;
+.Profile .posts-and-comments {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
 }
 
 .Profile .comments-container .comments {
-  width: 100%;
+  background-color: white;
+  border-radius: 15px;
+  padding: 15px;
   margin-inline: auto;
   min-width: 290px;
 }
@@ -17,7 +16,21 @@
   display: none;
 }
 
-@media only screen and (max-width: 500px) {
+.Profile #posts-container {
+  max-width: 40rem;
+  width: 50vw
+}
+
+@media only screen and (max-width: 760px) {
+  .Profile #posts-container {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .Profile .posts-and-comments {
+    display: block;
+  }
+
   .Profile .hide {
     display: none;
   }

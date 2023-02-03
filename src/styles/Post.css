@@ -42,8 +42,9 @@
   font-size: inherit;
 }
 
-.post-container p {
-  word-wrap: break-word;
+.post-container p,
+.post-container a {
+  overflow-wrap: break-word;
   overflow: hidden;
 }
 

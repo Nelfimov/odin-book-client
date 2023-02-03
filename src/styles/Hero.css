@@ -2,7 +2,7 @@
   background-color: white;
   padding: 15px;
   border-radius: 15px;
-  margin: 15px 0;
+  margin-bottom: 15px;
 }
 
 .Hero span {
@@ -51,7 +51,7 @@
   text-align: center;
 }
 
-@media only screen and (max-width: 650px) {
+@media only screen and (max-width: 760px) {
   .Hero > .content {
     grid-template-columns: 1fr;
   }
