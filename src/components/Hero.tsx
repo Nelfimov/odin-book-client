@@ -13,6 +13,7 @@ interface Props {
  */
 export function Hero({ id }: Props): JSX.Element {
   const [user, setUser] = useState<IUser>();
+  const [file, setFile] = useState<File>();
   const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
@@ -22,7 +23,25 @@ export function Hero({ id }: Props): JSX.Element {
         setLoading(false);
       })
       .catch((err) => console.log(err));
-  }, [id]);
+  }, [id, file]);
+
+  useEffect(() => {
+    if (file) {
+      uploadImage(id, file)
+        .then((result) => {
+          if (!result) return;
+          if (!result.success) {
+            return;
+          }
+          return getUser(id);
+        })
+        .then((user) => {
+          if (!user) return;
+          setUser(user);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [file]);
 
   function handleClick(): void {
     if (!user) return;
@@ -43,18 +62,11 @@ export function Hero({ id }: Props): JSX.Element {
       });
   }
 
-  function handleUpload(e: ChangeEvent<HTMLInputElement>): void {
-    if (!user) return;
+  function handleChange(e: ChangeEvent<HTMLInputElement>): void {
     if (!e.target.files) return;
-    const file = e.target.files[0];
-    uploadImage(id, file)
-      .then((result) => {
-        if (!result) return;
-        getUser(id).then((user) => setUser(user));
-        const input = document.getElementById('image') as HTMLInputElement;
-        if (input) input.value = '';
-      })
-      .catch((err) => console.log(err));
+    if (!user) return;
+    e.preventDefault();
+    setFile(e.target.files[0]);
   }
 
   function renderProfileImage(user: IUser): JSX.Element | undefined {
@@ -78,12 +90,14 @@ export function Hero({ id }: Props): JSX.Element {
           />
         </label>
         <input
+          accept="image/*"
           type="file"
           name="image"
           id="image"
-          onChange={handleUpload}
-          onClick={function (this: HTMLInputElement) {
-            this.value = '';
+          onChange={handleChange}
+          onClick={(e) => {
+            const element = e.target as HTMLInputElement;
+            element.value = '';
           }}
           hidden
         />
