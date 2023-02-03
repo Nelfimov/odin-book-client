@@ -108,7 +108,7 @@ export function Hero({ id }: Props): JSX.Element {
   function renderButton(user: IUser): JSX.Element {
     const id = localStorage.getItem('userID');
     if (!id) {
-      return <div>User not found</div>;
+      return <div>You are not authorized</div>;
     }
 
     const userID = JSON.parse(id);
