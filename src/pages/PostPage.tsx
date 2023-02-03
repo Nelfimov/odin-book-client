@@ -66,28 +66,30 @@ export function PostPage(): JSX.Element {
       {loadingPosts ? (
         <p>Loading</p>
       ) : (
-        post != null && <PostComponent post={post} isLink={false} />
+        post && <PostComponent post={post} isLink={false} />
       )}
-      <div className="comments-container">
-        <form onSubmit={handleSubmit}>
-          <textarea
-            ref={commentText}
-            name="column"
-            id="column"
-            rows={5}
-          ></textarea>
-          <button>Submit comment</button>
-        </form>
-        <div className="comments" id="comments">
-          {loadingComments ? (
-            <p>Loading</p>
-          ) : comments !== undefined ? (
-            comments.map((comment: Comment) => {
-              return <CommentComponent key={comment._id} comment={comment} />;
-            })
-          ) : null}
+      {post && (
+        <div className="comments-container">
+          <form onSubmit={handleSubmit}>
+            <textarea
+              ref={commentText}
+              name="column"
+              id="column"
+              rows={5}
+            ></textarea>
+            <button>Submit comment</button>
+          </form>
+          <div className="comments" id="comments">
+            {loadingComments ? (
+              <p>Loading</p>
+            ) : comments !== undefined ? (
+              comments.map((comment: Comment) => {
+                return <CommentComponent key={comment._id} comment={comment} />;
+              })
+            ) : null}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }

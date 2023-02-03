@@ -4,3 +4,4 @@ export * from './PostPage';
 export * from './NewPost';
 export * from './ProfilePage';
 export * from './FriendsPage';
+export * from './ErrorPage';
