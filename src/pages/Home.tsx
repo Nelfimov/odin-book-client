@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { Post } from '../components';
 import { getPosts } from '../api';
 import { Post as IPost } from '../types/common';
+import { useLoaderData } from 'react-router-dom';
 
 interface HomeInterface {
   friends: boolean;
@@ -11,7 +12,8 @@ interface HomeInterface {
  * Home page.
  */
 export function Home({ friends }: HomeInterface): JSX.Element {
-  const [posts, setPosts] = useState<IPost[]>([]);
+  const loadedPosts = useLoaderData() as IPost[];
+  const [posts, setPosts] = useState<IPost[]>(loadedPosts || []);
   const [lastPost, setLastPost] = useState<HTMLDivElement | null>();
   const [morePosts, setMorePosts] = useState(true);
   const [skip, setSkip] = useState<number>(0);
@@ -30,6 +32,7 @@ export function Home({ friends }: HomeInterface): JSX.Element {
   const observer = useRef(new IntersectionObserver(callback));
 
   useEffect(() => {
+    console.log('1st useeffect');
     morePosts &&
       getPosts(friends, skip)
         .then((posts) => {
@@ -52,6 +55,7 @@ export function Home({ friends }: HomeInterface): JSX.Element {
   }, [skip]);
 
   useEffect(() => {
+    console.log('second useeffect');
     const currentPost = lastPost;
     const currentObserver = observer.current;
 

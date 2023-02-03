@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Navbar, Footer } from './components';
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet, useLocation, useNavigation } from 'react-router-dom';
 import { Welcome } from './pages/index';
 import './styles/App.css';
 
@@ -10,6 +10,7 @@ import './styles/App.css';
 export default function App(): JSX.Element {
   const [isLogged, setIsLogged] = useState(true);
   const { pathname, hash, key } = useLocation();
+  const navigation = useNavigation();
 
   useEffect(() => {
     const user = localStorage.getItem('token');
@@ -46,6 +47,10 @@ export default function App(): JSX.Element {
   return (
     <div className="App" data-testid="App">
       <Navbar isLogged={isLogged} logout={logout} />
+      <div
+        id="transition"
+        className={navigation.state === 'loading' ? 'loading' : ''}
+      ></div>
       <main>{isLogged ? <Outlet /> : <Welcome login={login} />}</main>
       <Footer />
     </div>

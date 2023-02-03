@@ -8,6 +8,7 @@ import {
   ErrorPage,
 } from '../pages';
 import App from '../App';
+import { getPosts } from '../api/posts';
 
 export const router = createBrowserRouter([
   {
@@ -17,6 +18,9 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
+        loader: async () => {
+          return await getPosts(true, 0);
+        },
         element: <Home friends={true} />,
       },
       {
@@ -33,6 +37,9 @@ export const router = createBrowserRouter([
           },
           {
             path: 'discover',
+            loader: async () => {
+              return await getPosts(false, 0);
+            },
             element: <Home friends={false} />,
           },
         ],

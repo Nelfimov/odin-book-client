@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { FormEvent, useRef } from 'react';
 import '../styles/NewPost.css';
-import { createPost } from '../api';
+import { createPost } from '../api/index';
 
 /**
  * Post page.
