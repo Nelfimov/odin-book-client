@@ -1,6 +1,6 @@
 .Profile .posts-and-comments {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 2fr 1fr;
   gap: 20px;
 }
 
@@ -17,8 +17,8 @@
 }
 
 .Profile #posts-container {
-  max-width: 40rem;
-  width: 50vw
+  max-width: 51rem;
+  width: 60vw
 }
 
 @media only screen and (max-width: 760px) {
