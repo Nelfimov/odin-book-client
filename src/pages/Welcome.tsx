@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Login, Register } from '../components';
 import '../styles/Welcome.css';
+import { Data } from '../types/common/';
 
 interface WelcomeProps {
   login: () => void;
@@ -11,6 +12,22 @@ interface WelcomeProps {
  */
 export function Welcome({ login }: WelcomeProps): JSX.Element {
   const [toggle, setToggle] = useState(false);
+
+  function handleClick() {
+    fetch('/auth/demo')
+      .then((result) => result.json())
+      .then((data: Data) => {
+        if (!data.success) {
+          console.log(data);
+          return;
+        }
+        localStorage.setItem('token', JSON.stringify(data.token));
+        localStorage.setItem('userID', JSON.stringify(data.user?._id));
+        localStorage.setItem('username', JSON.stringify(data.user?.username));
+        login();
+      })
+      .catch((err) => console.log(err));
+  }
 
   return (
     <div className="Welcome">
@@ -24,6 +41,9 @@ export function Welcome({ login }: WelcomeProps): JSX.Element {
           Change to {toggle ? 'sign in' : 'log in'}
         </button>
         {toggle ? <Login login={login} /> : <Register login={login} />}
+        <button type="button" onClick={handleClick}>
+          DEMO
+        </button>
       </div>
     </div>
   );
