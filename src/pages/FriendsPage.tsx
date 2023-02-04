@@ -1,9 +1,10 @@
-import { Link, useLoaderData } from 'react-router-dom';
+import { Link, useFetcher, useLoaderData } from 'react-router-dom';
 import { Friend } from '../types/common/friend';
 import '../styles/FriendsPage.css';
 
 export function FriendsPage(): JSX.Element {
   const friendsList = useLoaderData() as Friend[];
+  const fetcher = useFetcher();
 
   // const [friendsList, setFriendsList] = useState<Friend[]>();
 
@@ -61,24 +62,34 @@ export function FriendsPage(): JSX.Element {
                   <div className="name">{friend.user.username}</div>
                 </Link>
                 <div className="buttons">
-                  <button
-                    className="accept"
-                    type="button"
-                    // onClick={() => {
-                    //   handleClickAccept(friend.user._id);
-                    // }}
+                  <fetcher.Form
+                    method="post"
+                    action={`/profile/${friend.user._id}/accept`}
                   >
-                    Accept
-                  </button>
-                  <button
-                    className="reject"
-                    type="button"
-                    // onClick={() => {
-                    //   handleClickReject(friend.user._id);
-                    // }}
+                    <button
+                      className="accept"
+                      // type="button"
+                      // onClick={() => {
+                      //   handleClickAccept(friend.user._id);
+                      // }}
+                    >
+                      Accept
+                    </button>
+                  </fetcher.Form>
+                  <fetcher.Form
+                    method="post"
+                    action={`/profile/${friend.user._id}/accept`}
                   >
-                    Reject
-                  </button>
+                    <button
+                      className="reject"
+                      // type="button"
+                      // onClick={() => {
+                      //   handleClickReject(friend.user._id);
+                      // }}
+                    >
+                      Reject
+                    </button>
+                  </fetcher.Form>
                 </div>
               </div>
             )

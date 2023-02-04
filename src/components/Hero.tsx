@@ -75,7 +75,12 @@ export function Hero(): JSX.Element {
     }
 
     const friend = user.friends.find((el) => el.user._id === userID);
-    if (friend == null) return <button>Send request</button>;
+    if (friend == null)
+      return (
+        <fetcher.Form method="post" action={`/profile/${user._id}/request`}>
+          <button>Send request</button>
+        </fetcher.Form>
+      );
 
     let text = 'error';
     switch (friend.status) {
