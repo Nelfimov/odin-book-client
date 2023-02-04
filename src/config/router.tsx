@@ -9,7 +9,13 @@ import {
 } from '../pages';
 import App from '../App';
 import { getPosts, likePost, createComment } from '../api';
-import { loadPost, loadComments } from '../loaders';
+import {
+  loadPost,
+  loadComments,
+  loadUser,
+  loadUserPosts,
+  loadUserComments,
+} from '../loaders';
 
 export const router = createBrowserRouter([
   {
@@ -26,7 +32,6 @@ export const router = createBrowserRouter([
       },
       {
         path: 'posts',
-        errorElement: <ErrorPage />,
         children: [
           {
             path: 'new',
@@ -72,11 +77,18 @@ export const router = createBrowserRouter([
       },
       {
         path: 'profile',
-        errorElement: <ErrorPage />,
         children: [
           {
             path: ':userID',
             element: <ProfilePage />,
+            loader: async ({ params }) => {
+              if (params.userID) {
+                const user = await loadUser(params.userID);
+                const userPosts = await loadUserPosts(params.userID);
+                const userComments = await loadUserComments(params.userID);
+                return { user, userPosts, userComments };
+              }
+            },
           },
           {
             path: 'friends',
