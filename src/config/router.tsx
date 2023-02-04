@@ -24,6 +24,7 @@ import {
   actionRequestFriendship,
   actionAcceptFriendship,
   actionRejectFriendship,
+  actionCreatePost,
 } from '../actions';
 
 export const router = createBrowserRouter([
@@ -43,6 +44,7 @@ export const router = createBrowserRouter([
           {
             path: 'new',
             element: <NewPost />,
+            action: actionCreatePost,
           },
           {
             path: ':postID',

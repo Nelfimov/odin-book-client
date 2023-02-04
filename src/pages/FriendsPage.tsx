@@ -6,52 +6,11 @@ export function FriendsPage(): JSX.Element {
   const friendsList = useLoaderData() as Friend[];
   const fetcher = useFetcher();
 
-  // const [friendsList, setFriendsList] = useState<Friend[]>();
-
-  // const userID = localStorage.getItem('userID');
-
-  // useEffect(() => {
-  //   if (userID == null) return;
-  //   getUser(JSON.parse(userID)).then((user) => {
-  //     setFriendsList(user?.friends);
-  //   });
-  // }, []);
-
-  // function handleClickAccept(id: string): void {
-  //   if (userID == null) return;
-
-  //   acceptFriendRequest(id)
-  //     .then((result) => {
-  //       if (result) {
-  //         getUser(JSON.parse(userID))
-  //           .then((user) => {
-  //             setFriendsList(user?.friends);
-  //           })
-  //           .catch();
-  //       }
-  //     })
-  //     .catch();
-  // }
-
-  // function handleClickReject(id: string): void {
-  //   if (userID == null) return;
-
-  //   rejectFriendRequest(id)
-  //     .then((result) => {
-  //       if (result) {
-  //         getUser(JSON.parse(userID))
-  //           .then((user) => setFriendsList(user?.friends))
-  //           .catch();
-  //       }
-  //     })
-  //     .catch();
-  // }
-
   return (
     <div className="FriendsPage">
       <div className="pending">
         <h2>Incoming requests</h2>
-        {friendsList?.map((friend) => {
+        {friendsList.map((friend) => {
           return (
             friend.status === 'pending' && (
               <div
@@ -66,29 +25,13 @@ export function FriendsPage(): JSX.Element {
                     method="post"
                     action={`/profile/${friend.user._id}/accept`}
                   >
-                    <button
-                      className="accept"
-                      // type="button"
-                      // onClick={() => {
-                      //   handleClickAccept(friend.user._id);
-                      // }}
-                    >
-                      Accept
-                    </button>
+                    <button className="accept">Accept</button>
                   </fetcher.Form>
                   <fetcher.Form
                     method="post"
                     action={`/profile/${friend.user._id}/accept`}
                   >
-                    <button
-                      className="reject"
-                      // type="button"
-                      // onClick={() => {
-                      //   handleClickReject(friend.user._id);
-                      // }}
-                    >
-                      Reject
-                    </button>
+                    <button className="reject">Reject</button>
                   </fetcher.Form>
                 </div>
               </div>
@@ -99,7 +42,7 @@ export function FriendsPage(): JSX.Element {
       <hr />
       <div className="requested">
         <h2>Requested</h2>
-        {friendsList?.map((friend) => {
+        {friendsList.map((friend) => {
           return (
             friend.status === 'requested' && (
               <div className="friend-container" key={`${friend._id}`}>
@@ -114,7 +57,7 @@ export function FriendsPage(): JSX.Element {
       <hr />
       <div className="friends">
         <h2>Friends</h2>
-        {friendsList?.map((friend) => {
+        {friendsList.map((friend) => {
           return (
             friend.status === 'friends' && (
               <div
