@@ -3,48 +3,23 @@ import { Data, Post } from '../types/common';
 /**
  * Like current post.
  */
-export function likePost(
-  postID: string,
-  liked: boolean,
-  likedCallback: (arg: boolean) => void,
-  post: Post,
-  postCallback: (arg: Post) => void
-): void {
+export async function likePost(id: string): Promise<undefined | boolean> {
+  console.log('starting fetch');
   const token = localStorage.getItem('token');
-  if (token == null) return;
-
+  if (!token) return;
   const headers = new Headers({
     'Content-Type': 'application/json',
     Authorization: JSON.parse(token),
   });
-
-  fetch(`http://localhost:3000/posts/${postID}/like`, {
+  const response = await fetch(`/posts/${id}/like`, {
     headers,
-  })
-    .then(async (response) => await response.json())
-    .then((data: Data) => {
-      if (!data.success) {
-        console.log(data.message);
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-
-  let newPost: Post;
-  if (liked) {
-    newPost = {
-      ...post,
-      [post.likes.count]: --post.likes.count,
-    };
-  } else {
-    newPost = {
-      ...post,
-      [post.likes.count]: ++post.likes.count,
-    };
+  });
+  const data: Data = await response.json();
+  if (!data.success) {
+    console.log(data.message);
+    return;
   }
-  likedCallback(!liked);
-  postCallback(newPost);
+  return data.increasedCount;
 }
 
 /**

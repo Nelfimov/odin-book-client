@@ -1,28 +1,16 @@
-import { MouseEvent, useState } from 'react';
 import { Post as PostInterface } from '../types/common';
 import { Link } from 'react-router-dom';
+import { LikeButton } from './LikeButton';
 import '../styles/Post.css';
-import { likePost } from '../api';
 
-export interface PostProps {
+export interface Props {
   post: PostInterface;
   isLink: boolean;
   key?: string;
   ref?: any;
 }
 
-export function Post({ post: postProp, isLink }: PostProps): JSX.Element {
-  const [post, setPost] = useState(postProp);
-  const [liked, setLiked] = useState(false);
-
-  function handleButton(e: MouseEvent<HTMLButtonElement>): void {
-    e.stopPropagation();
-    const element = e.currentTarget as HTMLButtonElement;
-    if (!element.dataset.post) return;
-    likePost(element.dataset.post, liked, setLiked, post, setPost);
-    element.classList.toggle('liked');
-  }
-
+export function Post({ post, isLink }: Props): JSX.Element {
   return (
     <div className="post-container">
       <div className="top">
@@ -47,10 +35,7 @@ export function Post({ post: postProp, isLink }: PostProps): JSX.Element {
         </>
       )}
       <div className="bottom">
-        <button data-post={post._id} type="button" onClick={handleButton}>
-          <img src="/images/icons/like.svg" alt="like" />
-          {post.likes.count}
-        </button>
+        <LikeButton post={post} />
 
         {isLink && (
           <Link to={`/posts/${post._id}#comments`}>

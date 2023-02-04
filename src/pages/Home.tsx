@@ -32,7 +32,6 @@ export function Home({ friends }: HomeInterface): JSX.Element {
   const observer = useRef(new IntersectionObserver(callback));
 
   useEffect(() => {
-    console.log('1st useeffect');
     morePosts &&
       getPosts(friends, skip)
         .then((posts) => {
@@ -55,7 +54,6 @@ export function Home({ friends }: HomeInterface): JSX.Element {
   }, [skip]);
 
   useEffect(() => {
-    console.log('second useeffect');
     const currentPost = lastPost;
     const currentObserver = observer.current;
 

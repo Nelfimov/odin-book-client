@@ -6,3 +6,4 @@ export * from './Post';
 export * from './Comment';
 export * from './Hero';
 export * from './FriendsList';
+export * from './LikeButton';
