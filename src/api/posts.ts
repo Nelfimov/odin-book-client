@@ -4,7 +4,6 @@ import { Data, Post } from '../types/common';
  * Like current post.
  */
 export async function likePost(id: string): Promise<undefined | boolean> {
-  console.log('starting fetch');
   const token = localStorage.getItem('token');
   if (!token) return;
   const headers = new Headers({
@@ -19,6 +18,7 @@ export async function likePost(id: string): Promise<undefined | boolean> {
     console.log(data.message);
     return;
   }
+  console.log(data);
   return data.increasedCount;
 }
 
