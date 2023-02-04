@@ -5,8 +5,6 @@
   margin-bottom: 15px;
 }
 
-
-
 .Hero span {
   overflow-wrap: break-word;
 }
@@ -36,21 +34,24 @@
   cursor: pointer;
 }
 
-.Hero .left span.prompt {
+.Hero .left .prompt {
   visibility: hidden;
   position: absolute;
   top: 0;
   left: 0;
   color: white;
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: black;
+  opacity: 0;
   z-index: 100;
   width: 100%;
   height: 100%;
+  transition: opacity .3s;
 }
 
 .Hero .left label:hover .prompt {
   visibility: visible;
+  opacity: .4;
 }
 
 .Hero .left img {

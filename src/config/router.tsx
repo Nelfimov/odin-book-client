@@ -8,7 +8,7 @@ import {
   ErrorPage,
 } from '../pages';
 import App from '../App';
-import { getPosts, likePost, createComment } from '../api';
+import { getPosts } from '../api';
 import {
   loadPost,
   loadComments,
@@ -16,6 +16,7 @@ import {
   loadUserPosts,
   loadUserComments,
 } from '../loaders';
+import { actionUploadImage, actionLike, actionCreateComment } from '../actions';
 
 export const router = createBrowserRouter([
   {
@@ -25,9 +26,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        loader: async () => {
-          return await getPosts(true, 0);
-        },
+        loader: async () => getPosts(true, 0),
         element: <Home friends={true} />,
       },
       {
@@ -41,36 +40,25 @@ export const router = createBrowserRouter([
             path: ':postID',
             element: <PostPage />,
             loader: async ({ params }) => {
-              if (params.postID) {
-                const post = await loadPost(params.postID);
-                const comments = await loadComments(params.postID);
+              const postID = params.postID;
+              if (postID) {
+                const post = await loadPost(postID);
+                const comments = await loadComments(postID);
                 return { post, comments };
               }
             },
           },
           {
             path: ':postID/new-comment',
-            action: async ({ request, params }) => {
-              const formData = await request.formData();
-              request.body;
-              return await createComment(
-                params.postID as string,
-                formData.get('comment-text') as string
-              );
-            },
+            action: actionCreateComment,
           },
           {
             path: 'like',
-            action: async ({ request }) => {
-              const formData = await request.formData();
-              return await likePost(formData.get('like') as string);
-            },
+            action: actionLike,
           },
           {
             path: 'discover',
-            loader: async () => {
-              return await getPosts(false, 0);
-            },
+            loader: async () => await getPosts(false, 0),
             element: <Home friends={false} />,
           },
         ],
@@ -89,6 +77,10 @@ export const router = createBrowserRouter([
                 return { user, userPosts, userComments };
               }
             },
+          },
+          {
+            path: ':userID/upload-image',
+            action: actionUploadImage,
           },
           {
             path: 'friends',

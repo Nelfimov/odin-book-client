@@ -1,79 +1,24 @@
-import { ChangeEvent, useEffect, useState } from 'react';
 import { User as IUser } from '../types/common';
 import { FriendsList } from './FriendsList';
-import { sendFriendRequest, uploadImage, getUser } from '../api';
 import '../styles/Hero.css';
+import { useFetcher, useLoaderData } from 'react-router-dom';
 
-interface Props {
-  id: string;
+interface Loader {
+  user: IUser;
 }
 
 /**
  * Hero component.
  */
-export function Hero({ id }: Props): JSX.Element {
-  const [user, setUser] = useState<IUser>();
-  const [file, setFile] = useState<File>();
-  const [loading, setLoading] = useState<boolean>(true);
-
-  useEffect(() => {
-    getUser(id)
-      .then((user) => {
-        setUser(user);
-        setLoading(false);
-      })
-      .catch((err) => console.log(err));
-  }, [id, file]);
-
-  useEffect(() => {
-    if (file) {
-      uploadImage(id, file)
-        .then((result) => {
-          if (!result) return;
-          if (!result.success) {
-            return;
-          }
-          return getUser(id);
-        })
-        .then((user) => {
-          if (!user) return;
-          setUser(user);
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [file]);
-
-  function handleClick(): void {
-    if (!user) return;
-    sendFriendRequest(id)
-      .then((result) => {
-        if (result) {
-          setLoading(true);
-          getUser(id)
-            .then((user) => {
-              setUser(user);
-              setLoading(false);
-            })
-            .catch((err) => console.log(err));
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  function handleChange(e: ChangeEvent<HTMLInputElement>): void {
-    if (!e.target.files) return;
-    if (!user) return;
-    e.preventDefault();
-    setFile(e.target.files[0]);
-  }
+export function Hero(): JSX.Element {
+  const { user } = useLoaderData() as Loader;
+  const fetcher = useFetcher();
 
   function renderProfileImage(user: IUser): JSX.Element | undefined {
     const userID = localStorage.getItem('userID');
     if (!userID) return;
 
-    if (id !== JSON.parse(userID))
+    if (user._id !== JSON.parse(userID))
       return (
         <img
           src={user.image ?? '/images/avatar/default.webp'}
@@ -83,31 +28,37 @@ export function Hero({ id }: Props): JSX.Element {
 
     return (
       <div className="prompt-to-update">
-        <label htmlFor="image">
-          <picture>
-            <img
-              src={user.image ?? '/images/avatar/default.webp'}
-              alt="profile-image"
-              onError={function (this: HTMLImageElement) {
-                this.onerror = null;
-                this.src = '/images/avatar/default.webp';
-              }}
-            />
-          </picture>
-          <span className="prompt">Click to upload new image</span>
-        </label>
-        <input
-          accept="image/*"
-          type="file"
-          name="image"
-          id="image"
-          onChange={handleChange}
-          onClick={(e) => {
-            const element = e.target as HTMLInputElement;
-            element.value = '';
-          }}
-          hidden
-        />
+        <fetcher.Form
+          method="patch"
+          action={`/profile/${user._id}/upload-image`}
+          onChange={(e) => fetcher.submit(e.currentTarget)}
+          encType="multipart/form-data"
+        >
+          <label htmlFor="image">
+            <picture>
+              <img
+                src={user.image ?? '/images/avatar/default.webp'}
+                alt="profile-image"
+                onError={function (this: HTMLImageElement) {
+                  this.onerror = null;
+                  this.src = '/images/avatar/default.webp';
+                }}
+              />
+            </picture>
+            <span className="prompt">Click to upload new image</span>
+          </label>
+          <input
+            accept="image/*"
+            type="file"
+            name="image"
+            id="image"
+            onClick={(e) => {
+              const element = e.target as HTMLInputElement;
+              element.value = '';
+            }}
+            hidden
+          />
+        </fetcher.Form>
       </div>
     );
   }
@@ -124,8 +75,7 @@ export function Hero({ id }: Props): JSX.Element {
     }
 
     const friend = user.friends.find((el) => el.user._id === userID);
-    if (friend == null)
-      return <button onClick={handleClick}>Send request</button>;
+    if (friend == null) return <button>Send request</button>;
 
     let text = 'error';
     switch (friend.status) {
@@ -145,9 +95,8 @@ export function Hero({ id }: Props): JSX.Element {
 
   return (
     <div className="Hero">
-      {loading && <h1>Loading</h1>}
-      {!loading && !user && <h1>User not found</h1>}
-      {!loading && user && (
+      {!user && <h1>User not found</h1>}
+      {user && (
         <div className="content">
           <div className="left">
             {renderProfileImage(user)}
