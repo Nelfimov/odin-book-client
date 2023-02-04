@@ -1,50 +1,50 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { getUser, acceptFriendRequest, rejectFriendRequest } from '../api';
+import { Link, useLoaderData } from 'react-router-dom';
 import { Friend } from '../types/common/friend';
 import '../styles/FriendsPage.css';
 
 export function FriendsPage(): JSX.Element {
-  const [friendsList, setFriendsList] = useState<Friend[]>();
+  const friendsList = useLoaderData() as Friend[];
 
-  const userID = localStorage.getItem('userID');
+  // const [friendsList, setFriendsList] = useState<Friend[]>();
 
-  useEffect(() => {
-    if (userID == null) return;
-    getUser(JSON.parse(userID)).then((user) => {
-      setFriendsList(user?.friends);
-    });
-  }, []);
+  // const userID = localStorage.getItem('userID');
 
-  function handleClickAccept(id: string): void {
-    if (userID == null) return;
+  // useEffect(() => {
+  //   if (userID == null) return;
+  //   getUser(JSON.parse(userID)).then((user) => {
+  //     setFriendsList(user?.friends);
+  //   });
+  // }, []);
 
-    acceptFriendRequest(id)
-      .then((result) => {
-        if (result) {
-          getUser(JSON.parse(userID))
-            .then((user) => {
-              setFriendsList(user?.friends);
-            })
-            .catch();
-        }
-      })
-      .catch();
-  }
+  // function handleClickAccept(id: string): void {
+  //   if (userID == null) return;
 
-  function handleClickReject(id: string): void {
-    if (userID == null) return;
+  //   acceptFriendRequest(id)
+  //     .then((result) => {
+  //       if (result) {
+  //         getUser(JSON.parse(userID))
+  //           .then((user) => {
+  //             setFriendsList(user?.friends);
+  //           })
+  //           .catch();
+  //       }
+  //     })
+  //     .catch();
+  // }
 
-    rejectFriendRequest(id)
-      .then((result) => {
-        if (result) {
-          getUser(JSON.parse(userID))
-            .then((user) => setFriendsList(user?.friends))
-            .catch();
-        }
-      })
-      .catch();
-  }
+  // function handleClickReject(id: string): void {
+  //   if (userID == null) return;
+
+  //   rejectFriendRequest(id)
+  //     .then((result) => {
+  //       if (result) {
+  //         getUser(JSON.parse(userID))
+  //           .then((user) => setFriendsList(user?.friends))
+  //           .catch();
+  //       }
+  //     })
+  //     .catch();
+  // }
 
   return (
     <div className="FriendsPage">
@@ -64,18 +64,18 @@ export function FriendsPage(): JSX.Element {
                   <button
                     className="accept"
                     type="button"
-                    onClick={() => {
-                      handleClickAccept(friend.user._id);
-                    }}
+                    // onClick={() => {
+                    //   handleClickAccept(friend.user._id);
+                    // }}
                   >
                     Accept
                   </button>
                   <button
                     className="reject"
                     type="button"
-                    onClick={() => {
-                      handleClickReject(friend.user._id);
-                    }}
+                    // onClick={() => {
+                    //   handleClickReject(friend.user._id);
+                    // }}
                   >
                     Reject
                   </button>

@@ -15,8 +15,16 @@ import {
   loadUser,
   loadUserPosts,
   loadUserComments,
+  loadUserFriends,
 } from '../loaders';
-import { actionUploadImage, actionLike, actionCreateComment } from '../actions';
+import {
+  actionUploadImage,
+  actionLike,
+  actionCreateComment,
+  actionRequestFriendship,
+  actionAcceptFriendship,
+  actionRejectFriendship,
+} from '../actions';
 
 export const router = createBrowserRouter([
   {
@@ -83,8 +91,21 @@ export const router = createBrowserRouter([
             action: actionUploadImage,
           },
           {
+            path: ':userID/request',
+            action: actionRequestFriendship,
+          },
+          {
+            path: ':userID/accept',
+            action: actionAcceptFriendship,
+          },
+          {
+            path: ':userID/decline',
+            action: actionRejectFriendship,
+          },
+          {
             path: 'friends',
             element: <FriendsPage />,
+            loader: loadUserFriends,
           },
         ],
       },
