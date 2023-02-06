@@ -36,8 +36,8 @@ export function Welcome({ login }: WelcomeProps): JSX.Element {
           <input type="checkbox" onChange={() => setToggle(!toggle)} />
           <span
             className="labels"
-            data-on="Change to login"
-            data-off="Change to register"
+            data-off="Change to login"
+            data-on="Change to register"
           ></span>
         </label>
         {toggle ? <Login login={login} /> : <Register login={login} />}
