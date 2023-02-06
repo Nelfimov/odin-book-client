@@ -8,7 +8,9 @@ export function ErrorPage(): JSX.Element {
     <div className="Error">
       <h1>Oops</h1>
       <p>Sorry, no such resource found.</p>
-      <i>{Error.statusText}</i>
+      <i>
+        {Error.statusText}. {Error.data} {Error.status}
+      </i>
     </div>
   );
 }

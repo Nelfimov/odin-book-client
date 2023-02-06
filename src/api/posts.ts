@@ -18,7 +18,6 @@ export async function likePost(id: string): Promise<undefined | boolean> {
     console.log(data.message);
     return;
   }
-  console.log(data);
   return data.increasedCount;
 }
 

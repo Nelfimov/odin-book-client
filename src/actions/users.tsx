@@ -14,7 +14,7 @@ export async function actionUploadImage({
     const formData = await request.formData();
     const file = formData.get('image') as File | null;
     if (!file) return;
-    await uploadImage(params.userID, file);
+    return await uploadImage(params.userID, file);
   }
 }
 
