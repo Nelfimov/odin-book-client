@@ -43,7 +43,8 @@ header nav {
   font-weight: 500;
 }
 
-header button img {
+header button img,
+header a img {
   width: 20px;
   filter: invert();
 }
@@ -54,6 +55,9 @@ header a {
   padding: var(--link-padding);
   text-align: center;
   transition: background-color .3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 header a:visited {
@@ -85,16 +89,11 @@ header button:hover {
 }
 
 
-header button.menu {
+header .toggle {
   display: none;
 }
 
 @media only screen and (max-width: 760px) {
-  header button.menu {
-    display: block;
-    padding: 0 1rem;
-  }
-
   header nav.hidden {
     display: none;
   }
@@ -123,8 +122,19 @@ header button.menu {
     filter: invert();
   }
 
-  header button.menu img {
-    width: 45px;
-    filter: invert();
+  header .toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    cursor: pointer;
+    padding: 3px 0;
+  }
+
+  header .toggle img {
+    filter: invert()
+  }
+
+  header .toggle input {
+    display: none;
   }
 }

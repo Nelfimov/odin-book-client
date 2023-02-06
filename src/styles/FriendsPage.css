@@ -13,10 +13,15 @@
   display: grid;
   grid-template-columns: 1fr max-content;
   align-items: center;
+  transition: background-color .05s;
 }
 
 .FriendsPage .friend-container:hover {
   background-color: var(--secondary-color);
+}
+
+.FriendsPage a {
+  padding: 15px 5px;
 }
 
 .FriendsPage .buttons {

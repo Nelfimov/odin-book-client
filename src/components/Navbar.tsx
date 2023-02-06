@@ -1,5 +1,5 @@
 import { NavLink, Link } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import '../styles/Navbar.css';
 
 interface NavbarProps {
@@ -11,15 +11,7 @@ interface NavbarProps {
  * Navbar component
  */
 export function Navbar({ isLogged, logout }: NavbarProps): JSX.Element {
-  /**
-   * Show menu on click.
-   */
-  function showMenu(): void {
-    const nav = document.querySelector('header nav');
-    if (nav === null) return;
-
-    nav.className = nav.className === 'hidden' ? 'active' : 'hidden';
-  }
+  const [showMenu, setShowMenu] = useState(false);
 
   function getUserName(): string {
     const username = localStorage.getItem('username');
@@ -38,13 +30,19 @@ export function Navbar({ isLogged, logout }: NavbarProps): JSX.Element {
     const buttons = document.querySelectorAll('nav button');
 
     anchors.forEach((element) => {
-      element.addEventListener('click', showMenu);
+      element.addEventListener('click', () => setShowMenu(false));
     });
     buttons.forEach((element) => {
-      element.addEventListener('click', showMenu);
-      element.addEventListener('touchend', showMenu);
+      element.addEventListener('click', () => setShowMenu(false));
+      element.addEventListener('touchend', () => setShowMenu(false));
     });
   }, []);
+
+  useEffect(() => {
+    const nav = document.querySelector('header nav');
+    if (nav === null) return;
+    showMenu ? (nav.className = 'active') : (nav.className = 'hidden');
+  }, [showMenu]);
 
   return (
     <header>
@@ -54,11 +52,26 @@ export function Navbar({ isLogged, logout }: NavbarProps): JSX.Element {
         </span>
         {isLogged ? (
           <nav className="hidden">
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/posts/discover">Discover</NavLink>
-            <NavLink to="/posts/new">New</NavLink>
-            <NavLink to={`/profile/${getUserID()}`}>{getUserName()}</NavLink>
-            <NavLink to={`/profile/friends`}>Your friends</NavLink>
+            <NavLink to="/">
+              <img src="/images/icons/home.svg" alt="home" />
+              Home
+            </NavLink>
+            <NavLink to="/posts/discover">
+              <img src="/images/icons/discover.svg" alt="discover" />
+              Discover
+            </NavLink>
+            <NavLink to="/posts/new">
+              <img src="/images/icons/new-post.svg" alt="new-post" />
+              New
+            </NavLink>
+            <NavLink to={`/profile/${getUserID()}`}>
+              <img src="/images/icons/profile.svg" alt="profile" />
+              {getUserName()}
+            </NavLink>
+            <NavLink to={`/profile/friends`}>
+              <img src="/images/icons/friends.svg" alt="friends" />
+              Your friends
+            </NavLink>
             <button onClick={logout}>
               <img src="/images/icons/logout.svg" alt="Log out" />
               Log out
@@ -69,9 +82,14 @@ export function Navbar({ isLogged, logout }: NavbarProps): JSX.Element {
             <a href="https://github.com/nelfimov">Github</a>
           </nav>
         )}
-        <button className="menu" onClick={showMenu}>
+        <label className="toggle">
+          <input
+            type="checkbox"
+            id="menu"
+            onChange={() => setShowMenu(!showMenu)}
+          />
           <img src="/images/icons/menu.svg" alt="Menu" />
-        </button>
+        </label>
       </div>
     </header>
   );
