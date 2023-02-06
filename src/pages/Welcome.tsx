@@ -32,14 +32,14 @@ export function Welcome({ login }: WelcomeProps): JSX.Element {
   return (
     <div className="Welcome">
       <div className="content">
-        <button
-          className={toggle ? 'login' : 'register'}
-          onClick={() => {
-            setToggle(!toggle);
-          }}
-        >
-          Change to {toggle ? 'sign in' : 'log in'}
-        </button>
+        <label className="toggle">
+          <input type="checkbox" onChange={() => setToggle(!toggle)} />
+          <span
+            className="labels"
+            data-on="Change to login"
+            data-off="Change to register"
+          ></span>
+        </label>
         {toggle ? <Login login={login} /> : <Register login={login} />}
         <button type="button" onClick={handleClick}>
           DEMO
