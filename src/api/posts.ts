@@ -3,9 +3,9 @@ import { Data, Post } from '../types/common';
 /**
  * Like current post.
  */
-export async function likePost(id: string): Promise<undefined | boolean> {
+export async function likePost(id: string): Promise<null | boolean> {
   const token = localStorage.getItem('token');
-  if (!token) return;
+  if (!token) return null;
   const headers = new Headers({
     'Content-Type': 'application/json',
     Authorization: JSON.parse(token),
@@ -16,9 +16,9 @@ export async function likePost(id: string): Promise<undefined | boolean> {
   const data: Data = await response.json();
   if (!data.success) {
     console.log(data.message);
-    return;
+    return null;
   }
-  return data.increasedCount;
+  return data.increasedCount ?? null;
 }
 
 /**

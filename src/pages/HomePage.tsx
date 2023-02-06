@@ -11,9 +11,9 @@ interface HomeInterface {
 /**
  * Home page.
  */
-export function Home({ friends }: HomeInterface): JSX.Element {
+export function HomePage({ friends }: HomeInterface): JSX.Element {
   const loadedPosts = useLoaderData() as IPost[];
-  const [posts, setPosts] = useState<IPost[]>(loadedPosts || []);
+  const [posts, setPosts] = useState<IPost[]>(loadedPosts);
   const [lastPost, setLastPost] = useState<HTMLDivElement | null>();
   const [morePosts, setMorePosts] = useState(true);
   const [skip, setSkip] = useState<number>(0);

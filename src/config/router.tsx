@@ -1,6 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import {
-  Home,
+  HomePage,
   PostPage,
   NewPost,
   ProfilePage,
@@ -8,7 +8,7 @@ import {
   ErrorPage,
 } from '../pages';
 import App from '../App';
-import { getPost, getPosts } from '../api';
+import { getPosts } from '../api';
 import {
   loadPost,
   loadComments,
@@ -36,7 +36,7 @@ export const router = createBrowserRouter([
       {
         path: '',
         loader: async () => await getPosts(true, 0),
-        element: <Home friends={true} />,
+        element: <HomePage friends={true} />,
       },
       {
         path: 'posts',
@@ -68,15 +68,8 @@ export const router = createBrowserRouter([
           },
           {
             path: 'discover',
-            loader: async ({ request }) => {
-              const url = new URL(request.url);
-              const skip = url.searchParams.get('skip');
-              await getPosts(false, 0);
-              return skip
-                ? await getPosts(false, parseInt(skip))
-                : await getPosts(false, 0);
-            },
-            element: <Home friends={false} />,
+            loader: async () => await getPosts(false, 0),
+            element: <HomePage friends={false} />,
           },
         ],
       },
