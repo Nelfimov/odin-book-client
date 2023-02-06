@@ -8,7 +8,7 @@ import {
   ErrorPage,
 } from '../pages';
 import App from '../App';
-import { getPosts } from '../api';
+import { getPost, getPosts } from '../api';
 import {
   loadPost,
   loadComments,
@@ -35,7 +35,7 @@ export const router = createBrowserRouter([
     children: [
       {
         path: '',
-        loader: async () => getPosts(true, 0),
+        loader: async () => await getPosts(true, 0),
         element: <Home friends={true} />,
       },
       {
@@ -68,7 +68,14 @@ export const router = createBrowserRouter([
           },
           {
             path: 'discover',
-            loader: async () => await getPosts(false, 0),
+            loader: async ({ request }) => {
+              const url = new URL(request.url);
+              const skip = url.searchParams.get('skip');
+              await getPosts(false, 0);
+              return skip
+                ? await getPosts(false, parseInt(skip))
+                : await getPosts(false, 0);
+            },
             element: <Home friends={false} />,
           },
         ],

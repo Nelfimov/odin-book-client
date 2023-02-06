@@ -9,7 +9,7 @@ export function FriendsPage(): JSX.Element {
   return (
     <div className="FriendsPage">
       <div className="pending">
-        <h2>Incoming requests</h2>
+        <h2>Awaiting your decision</h2>
         {friendsList.map((friend) => {
           return (
             friend.status === 'pending' && (
@@ -41,7 +41,7 @@ export function FriendsPage(): JSX.Element {
       </div>
       <hr />
       <div className="requested">
-        <h2>Requested</h2>
+        <h2>You requested</h2>
         {friendsList.map((friend) => {
           return (
             friend.status === 'requested' && (

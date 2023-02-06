@@ -1,4 +1,4 @@
-export * from './Home';
+export * from './HomePage';
 export * from './Welcome';
 export * from './PostPage';
 export * from './NewPostPage';

@@ -6,14 +6,14 @@ interface Props {
 }
 
 export function LikeButton({ post }: Props): JSX.Element {
-  const userID = localStorage.getItem('userID');
+  const username = localStorage.getItem('username');
   const fetcher = useFetcher();
 
   function isLiked(): boolean | undefined {
-    if (userID == null) return;
+    if (username == null) return;
 
-    const usersLiked = post.likes.users.map((user) => user._id);
-    return usersLiked.includes(userID);
+    const usersLiked = post.likes.users.map((user) => user.username);
+    return usersLiked.includes(JSON.parse(username));
   }
 
   return (

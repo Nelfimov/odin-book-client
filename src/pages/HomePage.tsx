@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { Post } from '../components';
-import { getPosts } from '../api';
-import { Post as IPost } from '../types/common';
+import { Post } from '../components/index';
+import { getPosts } from '../api/index';
+import { Post as IPost } from '../types/common/index';
 import { useLoaderData } from 'react-router-dom';
 
 interface HomeInterface {

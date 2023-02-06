@@ -28,20 +28,25 @@ export async function getPosts(
   isCurrentUser: boolean,
   skip: number
 ): Promise<Post[]> {
-  const token = localStorage.getItem('token');
-  if (token == null) return [];
+  try {
+    const token = localStorage.getItem('token');
+    if (token == null) return [];
 
-  const headers = new Headers({
-    'Content-Type': 'application/json',
-    Authorization: JSON.parse(token),
-  });
+    const headers = new Headers({
+      'Content-Type': 'application/json',
+      Authorization: JSON.parse(token),
+    });
 
-  const url = `/posts/${isCurrentUser ? 'friends' : ''}?skip=${skip}`;
-  const response = await fetch(url, {
-    headers,
-  });
-  const data: Data = await response.json();
-  return data.posts ?? [];
+    const url = `/posts/${isCurrentUser ? 'friends' : ''}?skip=${skip}`;
+    const response = await fetch(url, {
+      headers,
+    });
+    const data: Data = await response.json();
+    return data.posts ?? [];
+  } catch (err) {
+    console.log(err);
+    return [];
+  }
 }
 
 /**
